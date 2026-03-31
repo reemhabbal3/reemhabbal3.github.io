@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Image Cheat Sheet</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; background: #0f0f0f; color: #fff; padding: 48px; max-width: 800px; margin: 0 auto; }
+    h1 { font-size: 22px; font-weight: 500; margin-bottom: 8px; }
+    .sub { color: #999; font-size: 13px; margin-bottom: 48px; line-height: 1.6; }
+    .section-title { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #555; margin: 40px 0 16px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+    th { text-align: left; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #555; padding: 10px 16px; border-bottom: 1px solid #222; }
+    td { padding: 14px 16px; border-bottom: 1px solid #1a1a1a; font-size: 13px; vertical-align: top; }
+    td:first-child { font-family: monospace; color: #7ec8e3; font-size: 12px; }
+    td:nth-child(2) { color: #ccc; }
+    td:last-child { color: #666; font-size: 12px; }
+    .tip { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 20px 24px; margin: 40px 0; font-size: 13px; color: #999; line-height: 1.7; }
+    .tip strong { color: #fff; }
+    .method { display: inline-block; background: #222; border-radius: 4px; padding: 2px 8px; font-size: 11px; color: #aaa; margin-right: 6px; }
+  </style>
+</head>
+<body>
+  <h1>📁 Portfolio Image Cheat Sheet</h1>
+  <p class="sub">
+    Two ways to add images to your portfolio:<br>
+    <strong>Option A</strong> — Drop files into this <code>images/</code> folder using the exact filenames below, then refresh your browser.<br>
+    <strong>Option B</strong> — Click the <strong>Edit Mode</strong> button (bottom-right of the site), then click any card to upload directly. No filenames needed.
+  </p>
+
+  <p class="section-title">Ads &amp; Social</p>
+  <table>
+    <tr><th>Filename</th><th>Card</th><th>Notes</th></tr>
+    <tr><td>avenue-z-ads.jpg</td><td>Paid Media Creatives — Avenue Z</td><td>Wide card · JPG or PNG</td></tr>
+    <tr><td>warner-music.jpg</td><td>Warner Music Latina Campaign</td><td>JPG or PNG</td></tr>
+    <tr><td>le-bureau.jpg</td><td>LE Bureau Cowork — Social Growth</td><td>JPG or PNG</td></tr>
+    <tr><td>quicklay.jpg</td><td>Quicklay Beach Towel — Kickstarter</td><td>JPG or PNG</td></tr>
+  </table>
+
+  <p class="section-title">Video</p>
+  <table>
+    <tr><th>Filename</th><th>Card</th><th>Notes</th></tr>
+    <tr><td>avenue-z-video-thumb.jpg</td><td>Campaign Video — Avenue Z</td><td>Thumbnail image · Or use Edit Mode to paste a YouTube/Vimeo URL instead</td></tr>
+  </table>
+
+  <p class="section-title">Design</p>
+  <table>
+    <tr><th>Filename</th><th>Card</th><th>Notes</th></tr>
+    <tr><td>f1-tshirt.jpg</td><td>Formula 1 T-Shirt Series</td><td>JPG or PNG</td></tr>
+    <tr><td>make-a-wish.jpg</td><td>Make-A-Wish Fundraiser Stickers</td><td>JPG or PNG</td></tr>
+    <tr><td>slnce.jpg</td><td>SLNCE — Vintage Boutique Identity</td><td>JPG or PNG</td></tr>
+  </table>
+
+  <p class="section-title">Photography</p>
+  <table>
+    <tr><th>Filename</th><th>Card</th><th>Notes</th></tr>
+    <tr><td>photo-1.jpg</td><td>Photography card 1</td><td>JPG or PNG</td></tr>
+    <tr><td>photo-2.jpg</td><td>Photography card 2 (wide)</td><td>JPG or PNG · Landscape recommended</td></tr>
+  </table>
+
+  <p class="section-title">Case Study — BJJ Club</p>
+  <table>
+    <tr><th>Filename</th><th>Card</th><th>Notes</th></tr>
+    <tr><td>bjj-1.jpg</td><td>Case study image 1 (left)</td><td>JPG or PNG · 16:9 ratio ideal</td></tr>
+    <tr><td>bjj-2.jpg</td><td>Case study image 2 (right)</td><td>JPG or PNG · 16:9 ratio ideal</td></tr>
+  </table>
+
+  <div class="tip">
+    <strong>💡 Tips</strong><br>
+    • Any image format works (.jpg, .png, .webp) — just keep the filename exactly as listed above.<br>
+    • Images are automatically cropped to fill their card. Landscape images (wider than tall) work best for most slots.<br>
+    • If you use <strong>Edit Mode</strong> instead, images are saved in your browser and will persist across sessions — no files needed.<br>
+    • Want to <strong>clear</strong> a saved Edit Mode image? Open your browser console and run: <code>localStorage.removeItem('portfolio_SLOTNAME')</code> (replace SLOTNAME with the filename without extension, e.g. <code>avenue-z-ads</code>).
+  </div>
+</body>
+</html>

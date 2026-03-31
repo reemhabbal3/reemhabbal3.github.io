@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photography — Reem Habbal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --white: #ffffff; --gray: #999999; --black: #0a0a0a;
+      --accent: #C2654A; --accent-soft: rgba(194,101,74,0.12);
+      --border: rgba(255,255,255,0.08); --font: "Inter", sans-serif;
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black); color: var(--white);
+      font-family: var(--font); font-size: 14px; line-height: 1.6;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+    /* ─── Loader ─── */
+    #loader {
+      position: fixed; inset: 0; z-index: 9999; background: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.6s var(--ease), visibility 0.6s;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-text { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray);
+      animation: loaderPulse 1s ease-in-out infinite alternate; }
+    @keyframes loaderPulse { from { opacity: 0.3; } to { opacity: 1; } }
+
+    /* ─── Nav ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 40px;
+      transition: background 0.4s var(--ease), backdrop-filter 0.4s;
+    }
+    nav.scrolled { background: rgba(10,10,10,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+    .nav-back {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; color: var(--gray); letter-spacing: 0.06em; text-transform: uppercase;
+      transition: color 0.25s;
+    }
+    .nav-back:hover { color: var(--accent); }
+
+    /* ─── Header ─── */
+    .page-header {
+      padding: 160px 40px 80px;
+      border-bottom: 1px solid var(--border);
+      animation: fadeUp 0.9s var(--ease) both;
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+    .page-header-label {
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); margin-bottom: 24px;
+    }
+    .page-header-label span { color: rgba(255,255,255,0.2); margin: 0 8px; }
+    .page-header-title { font-size: clamp(40px, 6vw, 80px); font-weight: 300; letter-spacing: -0.03em; line-height: 1.05; }
+    .page-header-title em { font-style: italic; color: var(--accent); }
+    .page-header-count { font-size: 12px; color: var(--gray); margin-top: 24px; }
+
+    /* ─── Filter ─── */
+    .filter-bar {
+      display: flex; gap: 10px; padding: 32px 40px;
+      border-bottom: 1px solid var(--border); flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      border: 1px solid var(--border); padding: 8px 18px; border-radius: 100px;
+      background: none; color: var(--gray); cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .filter-btn:hover { color: var(--accent); border-color: var(--accent); background: none; }
+    .filter-btn.active {
+      background: var(--accent); color: var(--white); border-color: var(--accent);
+    }
+
+    /* ─── Masonry Grid ─── */
+    .gallery-section { padding: 48px 40px 120px; }
+    .masonry-grid {
+      columns: 3; column-gap: 12px;
+    }
+    .photo-card {
+      break-inside: avoid; margin-bottom: 12px;
+      position: relative; overflow: hidden; cursor: pointer;
+      background: #111;
+      transition: transform 0.35s var(--ease);
+    }
+    .photo-card:hover { transform: scale(0.995); }
+    .photo-card img {
+      width: 100%; display: block; height: auto;
+      transition: transform 0.5s var(--ease);
+    }
+    .photo-card:hover img { transform: scale(1.03); }
+    .photo-card.hidden-card { display: none; }
+
+    /* aspect ratio helpers for placeholders */
+    .photo-card .ph-ratio { padding-bottom: 75%; position: relative; }
+    .photo-card.tall .ph-ratio { padding-bottom: 133%; }
+    .photo-card.square .ph-ratio { padding-bottom: 100%; }
+
+    .photo-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+      border: 1px dashed rgba(255,255,255,0.08);
+    }
+    .photo-placeholder-icon { font-size: 20px; opacity: 0.4; }
+    .photo-placeholder-label { font-size: 10px; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.5; }
+    .photo-card img[src] + .photo-placeholder { display: none; }
+
+    /* overlay on hover */
+    .photo-overlay {
+      position: absolute; inset: 0; background: rgba(0,0,0,0.45);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 20px; opacity: 0;
+      transition: opacity 0.3s var(--ease);
+    }
+    .photo-card:hover .photo-overlay { opacity: 1; }
+    .photo-overlay-tag { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
+    .photo-overlay-title { font-size: 14px; font-weight: 400; }
+
+    /* edit pencil */
+    .edit-pencil {
+      position: absolute; inset: 0;
+      display: none; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.55); backdrop-filter: blur(4px);
+      font-size: 12px; letter-spacing: 0.1em; color: var(--white);
+      font-weight: 500; z-index: 5; cursor: pointer;
+    }
+    body.edit-mode .photo-card .edit-pencil { display: flex; }
+    body.edit-mode .photo-card { outline: 1px dashed rgba(255,68,68,0.5); outline-offset: -1px; }
+    body.edit-mode .photo-card:hover .photo-overlay { opacity: 0; }
+
+    /* ─── Lightbox ─── */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 9000;
+      background: rgba(0,0,0,0.92); backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.4s var(--ease), visibility 0.4s;
+    }
+    #lightbox.open { opacity: 1; visibility: visible; }
+    .lb-inner {
+      position: relative; max-width: 90vw; max-height: 90vh;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    #lb-img {
+      max-width: 90vw; max-height: 80vh; object-fit: contain;
+      border-radius: 2px;
+    }
+    #lb-caption {
+      margin-top: 16px; font-size: 12px; color: var(--gray);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .lb-close {
+      position: fixed; top: 28px; right: 36px;
+      background: none; border: 1px solid var(--border); color: var(--white);
+      font-size: 18px; width: 40px; height: 40px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .lb-close:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
+    .lb-nav {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      background: none; border: 1px solid var(--border); color: var(--white);
+      font-size: 18px; width: 44px; height: 44px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .lb-nav:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
+    #lb-prev { left: 24px; }
+    #lb-next { right: 24px; }
+
+    /* ─── Edit toggle ─── */
+    #edit-toggle {
+      position: fixed; bottom: 28px; right: 28px; z-index: 500;
+      display: flex; align-items: center; gap: 8px;
+      background: var(--white); color: var(--black);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      border: none; padding: 12px 20px; border-radius: 100px; cursor: pointer;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      transition: background 0.2s, transform 0.2s;
+    }
+    #edit-toggle:hover { transform: scale(1.04); }
+    #edit-toggle.active { background: #ff4444; color: var(--white); }
+    .edit-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: 0.7; }
+
+    /* ─── Custom cursor ─── */
+    .cursor {
+      position: fixed; pointer-events: none; z-index: 9998;
+      width: 8px; height: 8px; border-radius: 50%; background: var(--white);
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.3s var(--ease), height 0.3s var(--ease);
+      mix-blend-mode: difference;
+    }
+    .cursor.expanded { width: 48px; height: 48px; }
+
+    /* ─── Reveal ─── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      nav { padding: 20px 24px; }
+      .page-header { padding: 120px 24px 60px; }
+      .filter-bar { padding: 24px; }
+      .gallery-section { padding: 32px 24px 80px; }
+      .masonry-grid { columns: 2; }
+    }
+    @media (max-width: 560px) {
+      .masonry-grid { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loader"><span class="loader-text">RH</span></div>
+  <div class="cursor" id="cursor"></div>
+
+  <nav id="nav">
+    <a href="portfolio.html#hero" class="nav-logo">Reem Habbal</a>
+    <a href="portfolio.html" class="nav-back">← Back to Portfolio</a>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-header-label">RH <span>·</span> Photography</p>
+    <h1 class="page-header-title">Content &amp;<br><em>Photography</em></h1>
+    <p class="page-header-count" id="photo-count">— photos</p>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="content">Content Creation</button>
+    <button class="filter-btn" data-filter="brand">Brand / Events</button>
+    <button class="filter-btn" data-filter="personal">Personal</button>
+  </div>
+
+  <div class="gallery-section">
+    <div class="masonry-grid" id="masonry">
+
+      <!-- Slot 1 -->
+      <div class="photo-card reveal" data-slot="pg-1" data-category="content" data-caption="Content Creation">
+        <div class="ph-ratio"><div class="photo-placeholder"><span class="photo-placeholder-icon">📷</span><span class="photo-placeholder-label">photo-1.jpg</span></div></div>
+        <img src="images/pg-1.jpg" alt="" onerror="this.style.display='none'" style="display:none">
+        <div class="photo-overlay"><span class="photo-overlay-tag">Content Creation</span><span class="photo-overlay-title">Photography</span></div>
+        <div class="edit-pencil">✎ Click to upload</div>
+      </div>
+
+      <!-- Slot 2 tall -->
+      <div class="photo-card tall reveal" data-slot="pg-2" data-category="content" data-caption="Content Creation">
+        <div class="ph-ratio"><div class="photo-placeholder"><span class="photo-placeholder-icon">📷</span><span class="photo-placeholder-label">photo-2.jpg</span></div></div>
+        <img src="images/pg-2.jpg" alt="" onerror="this.style.display='none'" style="display:none">
+        <div class="photo-overlay"><span class="photo-overlay-tag">Content Creation</span><span class="photo-overlay-title">Photography</span></div>
+        <div class="edit-pencil">✎ Click to upload</div>
+      </div>
+
+      <!-- Slot 3 -->
+      <div class="photo-card reveal" data-slot="pg-3" data-category="brand" data-caption="Brand / Events">
+        <div class="ph-ratio"><div class="photo-placeholder"><span class="photo-placeholder-icon">📷</span><span class="photo-placeholder-label">photo-3.jpg</span></div></div>
+        <img src="images/pg-3.jpg" alt="" onerror="this.style.display='none'" style="display:none">
+        <div class="photo-overlay"><span class="photo-overlay-tag">Brand / Events</span><span class="photo-overlay-title">Photography</span></div>
+        <div class="edit-pencil">✎ Click to upload</div>
+      </div>
+
+      <!-- Slot 4 -->
+      <div class="photo-card reveal" data-slot="pg-4" data-category="personal" data-caption="Personal">
+        <div class="ph-ratio"><div class="photo-placeholder"><span class="photo-placeholder-icon">📷</span><span class="photo-placeholder-label">photo-4.jpg</span></div></div>
+        <img src="images/pg-4.jpg" alt="" onerror="this.style.display='none'" style="display:none">
+        <div class="photo-overlay"><span class="photo-overlay-tag">Personal</span><span class="photo-overlay-title">Photography</span></div>
+        <div class="edit-pencil">✎ Click to upload</div>
+      </div>
+
+      <!-- Slot 5 tall -->
+      <div class="photo-card tall reveal" data-slot="pg-5" data-category="brand" data-caption="Brand / Events">
+        <div class="ph-ratio"><div class="photo-placeholder"><span class="photo-placeholder-icon">📷</span><span class="photo-placeholder-label">photo-5.jpg</span></div></div>
+        <img src="images/pg-5.jpg" alt="" onerror="this.style.display='none'" style="display:none">
+        <div class="photo-overlay"><span class="photo-overlay-tag">Brand / Events</span><span class="photo-overlay-title">Photography</span></div>
+        <div class="edit-pencil">✎ Click to upload</div>
+      </div>
+
+      <!-- Slot 6 -->
+      <div class="photo-card reveal" data-slot="pg-6" data-category="content" data-caption="Content Creation">
+        <div class="ph-ratio"><div class="photo-placeholder"><span class="photo-placeholder-icon">📷</span><span class="photo-placeholder-label">photo-6.jpg</span></div></div>
+        <img src="images/pg-6.jpg" alt="" onerror="this.style.display='none'" style="display:none">
+        <div class="photo-overlay"><span class="photo-overlay-tag">Content Creation</span><span class="photo-overlay-title">Photography</span></div>
+        <div class="edit-pencil">✎ Click to upload</div>
+      </div>
+
+      <!-- Slot 7 square -->
+      <div class="photo-card square reveal" data-slot="pg-7" data-category="personal" data-caption="Personal">
+        <div class="ph-ratio"><div class="photo-placeholder"><span class="photo-placeholder-icon">📷</span><span class="photo-placeholder-label">photo-7.jpg</span></div></div>
+        <img src="images/pg-7.jpg" alt="" onerror="this.style.display='none'" style="display:none">
+        <div class="photo-overlay"><span class="photo-overlay-tag">Personal</span><span class="photo-overlay-title">Photography</span></div>
+        <div class="edit-pencil">✎ Click to upload</div>
+      </div>
+
+      <!-- Slot 8 -->
+      <div class="photo-card reveal" data-slot="pg-8" data-category="brand" data-caption="Brand / Events">
+        <div class="ph-ratio"><div class="photo-placeholder"><span class="photo-placeholder-icon">📷</span><span class="photo-placeholder-label">photo-8.jpg</span></div></div>
+        <img src="images/pg-8.jpg" alt="" onerror="this.style.display='none'" style="display:none">
+        <div class="photo-overlay"><span class="photo-overlay-tag">Brand / Events</span><span class="photo-overlay-title">Photography</span></div>
+        <div class="edit-pencil">✎ Click to upload</div>
+      </div>
+
+      <!-- Slot 9 tall -->
+      <div class="photo-card tall reveal" data-slot="pg-9" data-category="content" data-caption="Content Creation">
+        <div class="ph-ratio"><div class="photo-placeholder"><span class="photo-placeholder-icon">📷</span><span class="photo-placeholder-label">photo-9.jpg</span></div></div>
+        <img src="images/pg-9.jpg" alt="" onerror="this.style.display='none'" style="display:none">
+        <div class="photo-overlay"><span class="photo-overlay-tag">Content Creation</span><span class="photo-overlay-title">Photography</span></div>
+        <div class="edit-pencil">✎ Click to upload</div>
+      </div>
+
+      <!-- Slot 10 -->
+      <div class="photo-card reveal" data-slot="pg-10" data-category="personal" data-caption="Personal">
+        <div class="ph-ratio"><div class="photo-placeholder"><span class="photo-placeholder-icon">📷</span><span class="photo-placeholder-label">photo-10.jpg</span></div></div>
+        <img src="images/pg-10.jpg" alt="" onerror="this.style.display='none'" style="display:none">
+        <div class="photo-overlay"><span class="photo-overlay-tag">Personal</span><span class="photo-overlay-title">Photography</span></div>
+        <div class="edit-pencil">✎ Click to upload</div>
+      </div>
+
+      <!-- Slot 11 -->
+      <div class="photo-card reveal" data-slot="pg-11" data-category="brand" data-caption="Brand / Events">
+        <div class="ph-ratio"><div class="photo-placeholder"><span class="photo-placeholder-icon">📷</span><span class="photo-placeholder-label">photo-11.jpg</span></div></div>
+        <img src="images/pg-11.jpg" alt="" onerror="this.style.display='none'" style="display:none">
+        <div class="photo-overlay"><span class="photo-overlay-tag">Brand / Events</span><span class="photo-overlay-title">Photography</span></div>
+        <div class="edit-pencil">✎ Click to upload</div>
+      </div>
+
+      <!-- Slot 12 square -->
+      <div class="photo-card square reveal" data-slot="pg-12" data-category="content" data-caption="Content Creation">
+        <div class="ph-ratio"><div class="photo-placeholder"><span class="photo-placeholder-icon">📷</span><span class="photo-placeholder-label">photo-12.jpg</span></div></div>
+        <img src="images/pg-12.jpg" alt="" onerror="this.style.display='none'" style="display:none">
+        <div class="photo-overlay"><span class="photo-overlay-tag">Content Creation</span><span class="photo-overlay-title">Photography</span></div>
+        <div class="edit-pencil">✎ Click to upload</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox">
+    <button class="lb-close" id="lb-close">✕</button>
+    <button class="lb-nav" id="lb-prev">‹</button>
+    <button class="lb-nav" id="lb-next">›</button>
+    <div class="lb-inner">
+      <img id="lb-img" src="" alt="" />
+      <p id="lb-caption"></p>
+    </div>
+  </div>
+
+  <!-- Edit Mode Button -->
+  <button id="edit-toggle"><span class="edit-dot"></span> Edit Mode</button>
+
+  <script>
+    // ─── Loader ────────────────────────────────────────────────────
+    window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('hidden'), 600));
+
+    // ─── Nav scroll ────────────────────────────────────────────────
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // ─── Load saved images from localStorage ──────────────────────
+    function loadSavedImages() {
+      document.querySelectorAll('.photo-card[data-slot]').forEach(card => {
+        const saved = localStorage.getItem('photo_' + card.dataset.slot);
+        if (!saved) return;
+        let img = card.querySelector('img');
+        if (!img) { img = document.createElement('img'); card.prepend(img); }
+        img.src = saved; img.style.display = 'block';
+        const ph = card.querySelector('.photo-placeholder');
+        if (ph) ph.style.display = 'none';
+      });
+      updateCount();
+    }
+    loadSavedImages();
+
+    function updateCount() {
+      const filled = document.querySelectorAll('.photo-card[data-slot] img[src]:not([style*="display:none"])').length;
+      document.getElementById('photo-count').textContent = filled + (filled === 1 ? ' photo' : ' photos');
+    }
+
+    // ─── Scroll reveal ─────────────────────────────────────────────
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    // ─── Filter ────────────────────────────────────────────────────
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        document.querySelectorAll('.photo-card').forEach(c => {
+          c.classList.toggle('hidden-card', f !== 'all' && c.dataset.category !== f);
+        });
+      });
+    });
+
+    // ─── Edit Mode ─────────────────────────────────────────────────
+    const editToggle = document.getElementById('edit-toggle');
+    let editMode = false;
+    const fileInput = Object.assign(document.createElement('input'), { type: 'file', accept: 'image/*' });
+
+    editToggle.addEventListener('click', () => {
+      editMode = !editMode;
+      document.body.classList.toggle('edit-mode', editMode);
+      editToggle.classList.toggle('active', editMode);
+      editToggle.innerHTML = editMode
+        ? '<span class="edit-dot"></span> Exit Edit Mode'
+        : '<span class="edit-dot"></span> Edit Mode';
+    });
+
+    document.querySelectorAll('.photo-card[data-slot]').forEach(card => {
+      card.querySelector('.edit-pencil').addEventListener('click', e => {
+        if (!editMode) return;
+        e.stopPropagation();
+        const slot = card.dataset.slot;
+        fileInput.onchange = () => {
+          const file = fileInput.files[0]; if (!file) return;
+          const reader = new FileReader();
+          reader.onload = ev => {
+            const data = ev.target.result;
+            localStorage.setItem('photo_' + slot, data);
+            let img = card.querySelector('img');
+            if (!img) { img = document.createElement('img'); card.prepend(img); }
+            img.src = data; img.style.display = 'block';
+            const ph = card.querySelector('.photo-placeholder');
+            if (ph) ph.style.display = 'none';
+            updateCount();
+          };
+          reader.readAsDataURL(file);
+        };
+        fileInput.click();
+      });
+    });
+
+    // ─── Lightbox ──────────────────────────────────────────────────
+    const lightbox = document.getElementById('lightbox');
+    const lbImg    = document.getElementById('lb-img');
+    const lbCap    = document.getElementById('lb-caption');
+    let lbCards = [], lbIndex = 0;
+
+    function openLightbox(card) {
+      lbCards = Array.from(document.querySelectorAll('.photo-card:not(.hidden-card)'));
+      lbIndex = lbCards.indexOf(card);
+      showLbCard(lbIndex);
+      lightbox.classList.add('open');
+    }
+    function showLbCard(i) {
+      const c = lbCards[i];
+      const img = c.querySelector('img');
+      if (!img || img.style.display === 'none') return;
+      lbImg.src = img.src;
+      lbCap.textContent = c.dataset.caption || '';
+    }
+
+    document.querySelectorAll('.photo-card').forEach(card => {
+      card.addEventListener('click', () => {
+        if (editMode) return;
+        const img = card.querySelector('img');
+        if (img && img.style.display !== 'none' && img.src) openLightbox(card);
+      });
+    });
+
+    document.getElementById('lb-close').addEventListener('click', () => lightbox.classList.remove('open'));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+    document.getElementById('lb-prev').addEventListener('click', e => { e.stopPropagation(); lbIndex = (lbIndex - 1 + lbCards.length) % lbCards.length; showLbCard(lbIndex); });
+    document.getElementById('lb-next').addEventListener('click', e => { e.stopPropagation(); lbIndex = (lbIndex + 1) % lbCards.length; showLbCard(lbIndex); });
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') lightbox.classList.remove('open');
+      if (e.key === 'ArrowLeft')  { lbIndex = (lbIndex - 1 + lbCards.length) % lbCards.length; showLbCard(lbIndex); }
+      if (e.key === 'ArrowRight') { lbIndex = (lbIndex + 1) % lbCards.length; showLbCard(lbIndex); }
+    });
+
+    // ─── Custom cursor ─────────────────────────────────────────────
+    const cursor = document.getElementById('cursor');
+    let cx = 0, cy = 0, tx = 0, ty = 0;
+    document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+    document.querySelectorAll('a, button, .photo-card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expanded'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expanded'));
+    });
+    (function tick() { cx += (tx-cx)*0.14; cy += (ty-cy)*0.14; cursor.style.left = cx+'px'; cursor.style.top = cy+'px'; requestAnimationFrame(tick); })();
+  </script>
+</body>
+</html>
