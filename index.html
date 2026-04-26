@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reem Habbal — Marketing & Paid Media</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --gray: #999999;
+      --black: #0a0a0a;
+      --accent: #C2654A;
+      --accent-soft: rgba(194,101,74,0.12);
+      --border: rgba(255,255,255,0.08);
+      --font: "Inter", sans-serif;
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── Scrollbar ─────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+    /* ─── Page Loader ───────────────────────────────────────────── */
+    #loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.6s var(--ease), visibility 0.6s;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-text {
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray);
+      animation: loaderPulse 1s ease-in-out infinite alternate;
+    }
+    @keyframes loaderPulse { from { opacity: 0.3; } to { opacity: 1; } }
+
+    /* ─── Navigation ────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 40px;
+      transition: background 0.4s var(--ease), backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 12px; color: var(--gray); letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta {
+      font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.2); padding: 9px 20px; border-radius: 100px;
+      transition: background 0.25s, border-color 0.25s, color 0.25s;
+    }
+    .nav-cta:hover {
+      background: var(--accent); color: var(--white); border-color: var(--accent);
+    }
+
+    /* ─── Section Utility ───────────────────────────────────────── */
+    section { padding: 120px 40px; border-bottom: 1px solid var(--border); }
+    .section-label {
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gray); margin-bottom: 60px;
+    }
+    .section-label span { color: rgba(255,255,255,0.2); margin: 0 8px; }
+
+    /* ─── Fade-in on scroll ─────────────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── Hero ──────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 120px 40px 80px;
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+
+    .hero-tag {
+      position: absolute; top: 100px; right: 40px;
+      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gray); writing-mode: vertical-rl;
+      animation: fadeInRight 1s var(--ease) 0.8s both;
+    }
+    @keyframes fadeInRight { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: none; } }
+
+    .hero-content { max-width: 900px; }
+
+    .rolling-wrapper {
+      display: flex; align-items: flex-start; gap: 14px;
+      overflow: hidden; height: 20px; margin-bottom: 40px;
+    }
+    .rolling-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--white); flex-shrink: 0;
+      margin-top: 7px;
+      animation: dotPulse 2s ease-in-out infinite;
+    }
+    @keyframes dotPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    .rolling-track {
+      display: flex; flex-direction: column;
+      animation: rollUp 8s ease-in-out infinite;
+    }
+    .rolling-track span {
+      font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gray); line-height: 20px; white-space: pre;
+    }
+    @keyframes rollUp {
+      0%  { transform: translateY(0); }
+      14% { transform: translateY(0); }
+      18% { transform: translateY(-20px); }
+      32% { transform: translateY(-20px); }
+      36% { transform: translateY(-40px); }
+      50% { transform: translateY(-40px); }
+      54% { transform: translateY(-60px); }
+      68% { transform: translateY(-60px); }
+      72% { transform: translateY(-80px); }
+      86% { transform: translateY(-80px); }
+      90% { transform: translateY(-100px); }
+      96% { transform: translateY(-100px); }
+      100%{ transform: translateY(0); }
+    }
+
+    .hero-headline {
+      font-size: clamp(42px, 7vw, 96px);
+      font-weight: 300; line-height: 1.02; letter-spacing: -0.03em;
+      margin-bottom: 48px;
+      animation: heroFadeUp 1s var(--ease) 0.2s both;
+    }
+    @keyframes heroFadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+
+    .hero-headline em { font-style: italic; color: var(--accent); }
+
+    .hero-bottom {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      animation: heroFadeUp 1s var(--ease) 0.4s both;
+    }
+    .hero-desc {
+      font-size: 13px; color: var(--gray); max-width: 340px; line-height: 1.7;
+    }
+    .hero-cta {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.2); padding: 14px 28px; border-radius: 100px;
+      transition: background 0.25s, border-color 0.25s, color 0.25s;
+    }
+    .hero-cta:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
+    .hero-cta-arrow {
+      width: 14px; height: 14px; border: 1px solid currentColor; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ─── Marquee ───────────────────────────────────────────────── */
+    .marquee-strip {
+      overflow: hidden; padding: 20px 0; border-bottom: 1px solid var(--border);
+    }
+    .marquee-track {
+      display: flex; width: max-content;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .marquee-item {
+      display: flex; align-items: center; gap: 24px;
+      padding: 0 24px;
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray);
+      white-space: nowrap;
+    }
+    .marquee-sep { color: rgba(255,255,255,0.2); }
+
+    /* ─── Experience ────────────────────────────────────────────── */
+    #experience .experience-list { display: flex; flex-direction: column; }
+    .exp-item {
+      display: grid; grid-template-columns: 200px 1fr 200px;
+      align-items: start; padding: 36px 0; border-bottom: 1px solid var(--border);
+      gap: 40px;
+    }
+    .exp-item:first-child { border-top: 1px solid var(--border); }
+    .exp-period { font-size: 11px; color: var(--gray); padding-top: 4px; }
+    .exp-main {}
+    .exp-role { font-size: 17px; font-weight: 400; margin-bottom: 6px; }
+    .exp-company { font-size: 13px; color: var(--gray); margin-bottom: 16px; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .exp-bullets li {
+      font-size: 13px; color: var(--gray); line-height: 1.65;
+      display: flex; gap: 10px;
+    }
+    .exp-bullets li::before { content: '—'; color: rgba(255,255,255,0.18); flex-shrink: 0; }
+    .exp-location { font-size: 11px; color: var(--gray); text-align: right; padding-top: 4px; }
+
+    /* ─── Skills ─────────────────────────────────────────────────── */
+    #skills .skills-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      border: 1px solid var(--border);
+    }
+    .skill-card {
+      padding: 48px 36px; border-right: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+    .skill-card:nth-child(3n) { border-right: none; }
+    .skill-card:hover { background: var(--accent-soft); }
+    .skill-num { font-size: 10px; color: var(--gray); margin-bottom: 28px; }
+    .skill-name {
+      font-size: 17px; font-weight: 400; line-height: 1.3; margin-bottom: 18px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag {
+      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+      border: 1px solid var(--border); padding: 4px 10px; border-radius: 100px;
+      color: var(--gray);
+    }
+
+    /* ─── Achievements / Stats ──────────────────────────────────── */
+    #achievements .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border);
+    }
+    .stat-card {
+      padding: 56px 36px; border-right: 1px solid var(--border);
+      text-align: center; transition: background 0.3s;
+    }
+    .stat-card:last-child { border-right: none; }
+    .stat-card:hover { background: var(--accent-soft); }
+    .stat-num {
+      font-size: clamp(40px, 5vw, 60px); font-weight: 300;
+      letter-spacing: -0.04em; margin-bottom: 12px;
+      display: block; line-height: 1; color: var(--accent);
+    }
+    .stat-suffix { font-size: 0.55em; }
+    .stat-label { font-size: 13px; font-weight: 400; margin-bottom: 8px; }
+    .stat-desc { font-size: 11px; color: var(--gray); line-height: 1.5; }
+
+    /* ─── Portfolio Grid ────────────────────────────────────────── */
+    #portfolio { padding-bottom: 0; }
+    .filter-bar {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 48px; flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      border: 1px solid var(--border); padding: 8px 18px; border-radius: 100px;
+      cursor: pointer; color: var(--gray); background: none;
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+    }
+    .filter-btn:hover { color: var(--accent); border-color: var(--accent); }
+    .filter-btn.active { background: var(--accent); color: var(--white); border-color: var(--accent); }
+
+    .portfolio-grid {
+      display: flex; flex-wrap: wrap; gap: 2px;
+      align-items: flex-end;
+    }
+    .portfolio-card {
+      position: relative; overflow: hidden; cursor: pointer;
+      background: #111; height: 300px; flex: none;
+      transition: opacity 0.4s var(--ease);
+    }
+    .portfolio-card.hidden-card {
+      display: none;
+    }
+
+    .portfolio-card img {
+      height: 100%; width: auto; display: block;
+      position: relative; z-index: 1;
+      transition: opacity 0.4s var(--ease);
+    }
+    .portfolio-card:hover img { opacity: 0.88; }
+
+    /* placeholder cards get a fixed width since there's no image to size from */
+    .portfolio-card:not(:has(img[style*="display"])):not(:has(img[src])) { width: 280px; }
+    .portfolio-card:has(img[style*="display: none"]) { width: 280px; }
+    .portfolio-card:has(img[style*="display:none"]) { width: 280px; }
+
+    /* placeholder when no image yet */
+    .portfolio-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 10px;
+      border: 1px dashed rgba(255,255,255,0.12);
+    }
+    .portfolio-placeholder-icon { font-size: 22px; opacity: 0.25; }
+    .portfolio-placeholder-label {
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+    }
+
+    .portfolio-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 55%);
+      opacity: 0; transition: opacity 0.35s var(--ease);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 24px;
+    }
+    .portfolio-card:hover .portfolio-overlay { opacity: 1; }
+    .portfolio-overlay-tag {
+      font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); margin-bottom: 6px;
+    }
+    .portfolio-overlay-title {
+      font-size: 15px; font-weight: 400; line-height: 1.3;
+    }
+    .portfolio-overlay-arrow {
+      position: absolute; top: 20px; right: 20px;
+      font-size: 16px; color: var(--accent);
+      transform: rotate(-45deg);
+      transition: transform 0.3s var(--ease);
+    }
+    .portfolio-card:hover .portfolio-overlay-arrow { transform: rotate(0deg); }
+
+    /* video badge */
+    .video-badge {
+      position: absolute; top: 16px; left: 16px;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px;
+    }
+
+    /* ─── Lightbox ───────────────────────────────────────────────── */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 9000;
+      background: rgba(0,0,0,0.92); backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.35s var(--ease), visibility 0.35s;
+    }
+    #lightbox.open { opacity: 1; visibility: visible; }
+    .lightbox-inner {
+      max-width: 900px; width: 90%; max-height: 90vh;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .lightbox-media {
+      width: 100%; max-height: 70vh; object-fit: contain;
+      border-radius: 4px;
+    }
+    .lightbox-video {
+      width: 100%; aspect-ratio: 16/9; border-radius: 4px; border: none;
+    }
+    .lightbox-meta { display: flex; align-items: center; justify-content: space-between; }
+    .lightbox-title { font-size: 16px; font-weight: 400; }
+    .lightbox-tag { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray); }
+    .lightbox-close {
+      position: absolute; top: 28px; right: 28px;
+      font-size: 24px; color: var(--gray); cursor: pointer; line-height: 1;
+      transition: color 0.2s;
+    }
+    .lightbox-close:hover { color: var(--white); }
+
+    /* ─── Case Study ─────────────────────────────────────────────── */
+    #case-study { background: #0f0f0f; }
+    .cs-header {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      margin-bottom: 80px; align-items: end;
+    }
+    .cs-title {
+      font-size: clamp(32px, 4vw, 56px); font-weight: 300;
+      letter-spacing: -0.025em; line-height: 1.1;
+    }
+    .cs-title em { font-style: italic; color: var(--accent); }
+    .cs-intro { font-size: 14px; color: var(--gray); line-height: 1.8; }
+    .cs-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border); margin-bottom: 80px;
+    }
+    .cs-stat {
+      padding: 40px 32px; border-right: 1px solid var(--border); text-align: center;
+    }
+    .cs-stat:last-child { border-right: none; }
+    .cs-stat-num {
+      font-size: 48px; font-weight: 300; letter-spacing: -0.04em;
+      margin-bottom: 8px; line-height: 1; color: var(--accent);
+    }
+    .cs-stat-label { font-size: 11px; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; }
+    .cs-blocks {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      border: 1px solid var(--border); margin-bottom: 80px;
+    }
+    .cs-block {
+      padding: 40px 32px; border-right: 1px solid var(--border);
+    }
+    .cs-block:last-child { border-right: none; }
+    .cs-block-label {
+      font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gray); margin-bottom: 20px;
+    }
+    .cs-block-text { font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.8); }
+    .cs-image-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px;
+    }
+    .cs-image {
+      background: #1a1a1a; overflow: hidden; min-height: 180px;
+    }
+    .cs-image img { width: 100%; height: auto; display: block; position: relative; z-index: 1; }
+    .cs-image .portfolio-placeholder { border: 1px dashed rgba(255,255,255,0.08); }
+
+    /* ─── Campaigns / Projects ──────────────────────────────────── */
+    #campaigns .campaigns-list { display: flex; flex-direction: column; }
+    .campaign-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 28px 0; border-bottom: 1px solid var(--border);
+      cursor: pointer; overflow: hidden; position: relative;
+      transition: padding 0.35s var(--ease);
+    }
+    .campaign-item:first-child { border-top: 1px solid var(--border); }
+    .campaign-item::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,0.025);
+      transform: translateX(-101%);
+      transition: transform 0.4s var(--ease);
+    }
+    .campaign-item:hover::after { transform: translateX(0); }
+    .campaign-item:hover { padding-left: 12px; }
+
+    .campaign-left { display: flex; align-items: center; gap: 24px; }
+    .campaign-num { font-size: 11px; color: var(--gray); letter-spacing: 0.08em; min-width: 28px; }
+    .campaign-name { font-size: clamp(20px, 3vw, 32px); font-weight: 300; letter-spacing: -0.02em; }
+    .campaign-tag {
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gray); border: 1px solid var(--border); padding: 4px 10px; border-radius: 100px;
+    }
+    .campaign-right { display: flex; align-items: center; gap: 16px; }
+    .campaign-year { font-size: 11px; color: var(--gray); }
+    .campaign-arrow {
+      font-size: 18px; color: var(--gray); transform: rotate(-45deg);
+      transition: transform 0.3s var(--ease), color 0.3s;
+    }
+    .campaign-item:hover .campaign-arrow { transform: rotate(0deg); color: var(--accent); }
+
+    /* ─── Education ─────────────────────────────────────────────── */
+    #education .edu-block {
+      display: grid; grid-template-columns: 200px 1fr; gap: 40px;
+      padding: 48px 0; border-bottom: 1px solid var(--border);
+    }
+    .edu-block:first-of-type { border-top: 1px solid var(--border); }
+    .edu-year { font-size: 11px; color: var(--gray); padding-top: 4px; }
+    .edu-degree { font-size: 19px; font-weight: 300; margin-bottom: 8px; }
+    .edu-school { font-size: 14px; color: var(--gray); margin-bottom: 16px; }
+    .edu-details { display: flex; flex-wrap: wrap; gap: 10px; }
+    .edu-badge {
+      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+      border: 1px solid var(--border); padding: 5px 12px; border-radius: 100px; color: var(--gray);
+    }
+
+    /* ─── Languages ─────────────────────────────────────────────── */
+    #languages .lang-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border);
+    }
+    .lang-card {
+      padding: 48px 36px; border-right: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+    .lang-card:last-child { border-right: none; }
+    .lang-card:hover { background: rgba(255,255,255,0.03); }
+    .lang-name { font-size: 22px; font-weight: 300; margin-bottom: 10px; }
+    .lang-level { font-size: 11px; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; }
+    .lang-bar {
+      height: 1px; background: var(--border); margin-top: 24px; position: relative; overflow: hidden;
+    }
+    .lang-fill {
+      position: absolute; left: 0; top: 0; height: 100%;
+      background: var(--white);
+      animation: none;
+    }
+    .lang-fill.animate { animation: fillBar 1.2s var(--ease) forwards; }
+    @keyframes fillBar { from { width: 0; } }
+
+    /* ─── Certifications ─────────────────────────────────────────── */
+    #certifications .cert-list { display: flex; flex-direction: column; }
+    .cert-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 0; border-bottom: 1px solid var(--border);
+    }
+    .cert-item:first-child { border-top: 1px solid var(--border); }
+    .cert-name { font-size: 15px; font-weight: 300; }
+    .cert-issuer { font-size: 11px; color: var(--gray); letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* ─── FAQ ───────────────────────────────────────────────────── */
+    #faq .faq-list { max-width: 760px; }
+    .faq-item { border-bottom: 1px solid var(--border); overflow: hidden; }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-question {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 0; cursor: pointer; user-select: none;
+    }
+    .faq-q-text { font-size: 15px; font-weight: 400; }
+    .faq-icon {
+      width: 24px; height: 24px; border: 1px solid var(--border); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; color: var(--gray); flex-shrink: 0;
+      transition: transform 0.35s var(--ease), border-color 0.25s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); border-color: rgba(255,255,255,0.3); }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.45s var(--ease), padding 0.35s;
+    }
+    .faq-item.open .faq-answer { max-height: 200px; padding-bottom: 24px; }
+    .faq-answer p { font-size: 14px; color: var(--gray); line-height: 1.7; }
+
+    /* ─── Footer ────────────────────────────────────────────────── */
+    footer { padding: 80px 40px 48px; }
+    .footer-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 80px;
+    }
+    .footer-logo { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+    .footer-tagline { font-size: 12px; color: var(--gray); margin-top: 8px; max-width: 260px; line-height: 1.6; }
+    .footer-contact { display: flex; flex-direction: column; gap: 10px; }
+    .footer-contact a {
+      font-size: 12px; color: var(--gray);
+      transition: color 0.25s;
+    }
+    .footer-contact a:hover { color: var(--accent); }
+    .footer-links { display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a {
+      font-size: 12px; color: var(--gray); letter-spacing: 0.06em; text-transform: uppercase;
+      transition: color 0.25s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--border); padding-top: 32px;
+    }
+    .footer-copy { font-size: 11px; color: var(--gray); }
+    .footer-socials { display: flex; gap: 20px; }
+    .footer-socials a {
+      font-size: 11px; color: var(--gray); letter-spacing: 0.08em; text-transform: uppercase;
+      transition: color 0.25s;
+    }
+    .footer-socials a:hover { color: var(--accent); }
+
+    .view-all-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gray); border: 1px solid var(--border); padding: 12px 28px; border-radius: 100px;
+      transition: color 0.25s, border-color 0.25s, background 0.25s;
+    }
+    .view-all-link:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+    .view-all-link.view-all-primary {
+      background: var(--accent); color: var(--white); border-color: var(--accent);
+      padding: 14px 36px; font-size: 13px;
+    }
+    .view-all-link.view-all-primary:hover {
+      background: transparent; color: var(--accent);
+    }
+
+    /* ─── Edit Mode ─────────────────────────────────────────────── */
+    #edit-toggle {
+      position: fixed; bottom: 28px; right: 28px; z-index: 500;
+      display: flex; align-items: center; gap: 8px;
+      background: var(--white); color: var(--black);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      border: none; padding: 12px 20px; border-radius: 100px; cursor: pointer;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      transition: background 0.2s, transform 0.2s;
+    }
+    #edit-toggle:hover { transform: scale(1.04); }
+    #edit-toggle.active { background: #ff4444; color: var(--white); }
+    .edit-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: 0.7;
+    }
+
+    .edit-pencil {
+      position: absolute; inset: 0;
+      display: none; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.55); backdrop-filter: blur(4px);
+      font-size: 12px; letter-spacing: 0.1em; color: var(--white);
+      font-weight: 500; z-index: 5; cursor: pointer;
+    }
+
+    body.edit-mode .portfolio-card .edit-pencil,
+    body.edit-mode .cs-image .edit-pencil { display: flex; }
+    body.edit-mode .portfolio-card,
+    body.edit-mode .cs-image {
+      outline: 1px dashed rgba(255, 68, 68, 0.5);
+      outline-offset: -1px;
+    }
+    body.edit-mode .portfolio-card:hover .portfolio-overlay { opacity: 0; }
+
+    /* ─── Editable text ─────────────────────────────────────────── */
+    body.edit-mode [data-text-slot] {
+      outline: 1px dashed rgba(255, 210, 60, 0.4);
+      outline-offset: 4px; border-radius: 2px; cursor: text;
+    }
+    body.edit-mode [data-text-slot]:hover {
+      outline-color: rgba(255, 210, 60, 0.75);
+      background: rgba(255, 210, 60, 0.04);
+    }
+    body.edit-mode [data-text-slot]:focus {
+      outline-color: rgba(255, 210, 60, 1);
+      background: rgba(255, 210, 60, 0.06);
+    }
+    .text-saved-flash { background: rgba(80,255,140,0.1) !important; transition: background 0.5s !important; }
+
+    /* video URL modal */
+    #video-modal {
+      position: fixed; inset: 0; z-index: 9500;
+      background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.3s var(--ease), visibility 0.3s;
+    }
+    #video-modal.open { opacity: 1; visibility: visible; }
+    .video-modal-box {
+      background: #1a1a1a; border: 1px solid var(--border);
+      border-radius: 8px; padding: 40px; width: 480px; max-width: 90%;
+    }
+    .video-modal-title { font-size: 16px; font-weight: 400; margin-bottom: 8px; }
+    .video-modal-sub { font-size: 12px; color: var(--gray); margin-bottom: 28px; }
+    .video-modal-input {
+      width: 100%; background: #111; border: 1px solid var(--border);
+      color: var(--white); font-size: 13px; padding: 12px 16px; border-radius: 6px;
+      outline: none; margin-bottom: 20px;
+      transition: border-color 0.2s;
+    }
+    .video-modal-input:focus { border-color: rgba(255,255,255,0.3); }
+    .video-modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+    .video-modal-btn {
+      font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 10px 22px; border-radius: 100px; cursor: pointer; border: none;
+    }
+    .video-modal-btn.cancel { background: none; border: 1px solid var(--border); color: var(--gray); }
+    .video-modal-btn.save { background: var(--white); color: var(--black); }
+
+    /* ─── Custom Cursor ─────────────────────────────────────────── */
+    .cursor {
+      position: fixed; pointer-events: none; z-index: 9998;
+      width: 8px; height: 8px; border-radius: 50%; background: var(--white);
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.3s var(--ease), height 0.3s var(--ease), opacity 0.3s;
+      mix-blend-mode: difference;
+      opacity: 0;
+    }
+    .cursor.visible { opacity: 1; }
+    .cursor.expanded { width: 48px; height: 48px; }
+
+    /* ─── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      section { padding: 80px 24px; }
+      nav { padding: 20px 24px; }
+      #hero { padding: 100px 24px 64px; }
+      .hero-bottom { flex-direction: column; align-items: flex-start; gap: 32px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .skill-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-card:nth-child(2) { border-right: none; }
+      .stat-card { border-bottom: 1px solid var(--border); }
+      .lang-grid { grid-template-columns: repeat(2, 1fr); }
+      .lang-card:nth-child(2n) { border-right: none; }
+      .lang-card { border-bottom: 1px solid var(--border); }
+      .exp-item { grid-template-columns: 1fr; gap: 8px; }
+      .exp-location { text-align: left; }
+      .edu-block { grid-template-columns: 1fr; gap: 12px; }
+      .footer-top { flex-direction: column; gap: 40px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page Loader -->
+  <div id="loader"><span class="loader-text">RH</span></div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <a href="portfolio.html#hero" class="nav-logo">Reem Habbal</a>
+    <ul class="nav-links">
+      <li><a href="#campaigns">Work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Contact</a>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-tag">Weston, FL · 2025</div>
+    <div class="hero-content">
+      <div class="rolling-wrapper">
+        <div class="rolling-dot"></div>
+        <div class="rolling-track">
+          <span>Marketing Strategist</span>
+          <span>Paid Media Specialist</span>
+          <span>Project Coordinator</span>
+          <span>Campaign Director</span>
+          <span>Brand Marketer</span>
+          <span>Marketing Strategist</span>
+        </div>
+      </div>
+      <h1 class="hero-headline">
+        Data-driven strategy.<br><em>Results that scale.</em><br>Built for what's next.
+      </h1>
+      <div class="hero-bottom">
+        <p class="hero-desc">
+          Marketing professional specialising in paid media, campaign strategy and cross-functional team leadership — driving measurable growth for brands across multiple channels.
+        </p>
+        <a href="#contact" class="hero-cta">
+          Get in touch
+          <span class="hero-cta-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <div class="marquee-item">Paid Media <span class="marquee-sep">·</span></div>
+      <div class="marquee-item">Google Ads <span class="marquee-sep">·</span></div>
+      <div class="marquee-item">Campaign Strategy <span class="marquee-sep">·</span></div>
+      <div class="marquee-item">Brand Marketing <span class="marquee-sep">·</span></div>
+      <div class="marquee-item">HubSpot <span class="marquee-sep">·</span></div>
+      <div class="marquee-item">Workflow Design <span class="marquee-sep">·</span></div>
+      <div class="marquee-item">Data Analytics <span class="marquee-sep">·</span></div>
+      <div class="marquee-item">Team Leadership <span class="marquee-sep">·</span></div>
+      <!-- duplicate for seamless loop -->
+      <div class="marquee-item">Paid Media <span class="marquee-sep">·</span></div>
+      <div class="marquee-item">Google Ads <span class="marquee-sep">·</span></div>
+      <div class="marquee-item">Campaign Strategy <span class="marquee-sep">·</span></div>
+      <div class="marquee-item">Brand Marketing <span class="marquee-sep">·</span></div>
+      <div class="marquee-item">HubSpot <span class="marquee-sep">·</span></div>
+      <div class="marquee-item">Workflow Design <span class="marquee-sep">·</span></div>
+      <div class="marquee-item">Data Analytics <span class="marquee-sep">·</span></div>
+      <div class="marquee-item">Team Leadership <span class="marquee-sep">·</span></div>
+    </div>
+  </div>
+
+  <!-- Key Achievements -->
+  <section id="achievements">
+    <p class="section-label reveal">RH <span>·</span> Key Achievements</p>
+    <div class="stats-grid">
+      <div class="stat-card reveal">
+        <span class="stat-num" data-count="40" data-suffix="%">0%</span>
+        <p class="stat-label">Campaign Reach</p>
+        <p class="stat-desc">Increased campaign reach across multi-channel initiatives for Celsius, Red Bull &amp; Warner Music Latina</p>
+      </div>
+      <div class="stat-card reveal reveal-delay-1">
+        <span class="stat-num" data-count="30" data-suffix="%">0%</span>
+        <p class="stat-label">Customer Satisfaction</p>
+        <p class="stat-desc">Lifted satisfaction scores within one year through structured leadership and engagement initiatives</p>
+      </div>
+      <div class="stat-card reveal reveal-delay-2">
+        <span class="stat-num" data-count="120" data-suffix="+">0+</span>
+        <p class="stat-label">Team Members Led</p>
+        <p class="stat-desc">Directed 8 managers and 120+ associates across a $7M annual revenue retail operation</p>
+      </div>
+      <div class="stat-card reveal reveal-delay-3">
+        <span class="stat-num" data-count="1" data-suffix="st">—</span>
+        <p class="stat-label">National Ranking</p>
+        <p class="stat-desc">1st place in a national AMA marketing simulation, outperforming 50+ competing teams</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Campaigns / Featured Work -->
+  <section id="campaigns">
+    <p class="section-label reveal">RH <span>·</span> Work Breakdown</p>
+    <div class="campaigns-list">
+      <a href="experience.html#avenue-z" class="campaign-item reveal">
+        <div class="campaign-left">
+          <span class="campaign-num">01</span>
+          <span class="campaign-name">Avenue Z</span>
+          <span class="campaign-tag">Paid Media</span>
+        </div>
+        <div class="campaign-right">
+          <span class="campaign-year">Dec 2025 — Present</span>
+          <span class="campaign-arrow">↗</span>
+        </div>
+      </a>
+      <a href="experience.html#roaring-concepts" class="campaign-item reveal reveal-delay-1">
+        <div class="campaign-left">
+          <span class="campaign-num">02</span>
+          <span class="campaign-name">Roaring Concepts</span>
+          <span class="campaign-tag">Marketing Account Director</span>
+        </div>
+        <div class="campaign-right">
+          <span class="campaign-year">Jan 2022 — May 2023</span>
+          <span class="campaign-arrow">↗</span>
+        </div>
+      </a>
+      <a href="experience.html#gtv" class="campaign-item reveal reveal-delay-2">
+        <div class="campaign-left">
+          <span class="campaign-num">03</span>
+          <span class="campaign-name">GTV</span>
+          <span class="campaign-tag">AI Creatives</span>
+        </div>
+        <div class="campaign-right">
+          <span class="campaign-year">Current</span>
+          <span class="campaign-arrow">↗</span>
+        </div>
+      </a>
+      <a href="experience.html#bjj" class="campaign-item reveal reveal-delay-3">
+        <div class="campaign-left">
+          <span class="campaign-num">04</span>
+          <span class="campaign-name">BJJ Club</span>
+          <span class="campaign-tag">Leadership</span>
+        </div>
+        <div class="campaign-right">
+          <span class="campaign-year">Jan 2022 — May 2023</span>
+          <span class="campaign-arrow">↗</span>
+        </div>
+      </a>
+      <a href="experience.html#other" class="campaign-item reveal reveal-delay-4">
+        <div class="campaign-left">
+          <span class="campaign-num">05</span>
+          <span class="campaign-name">Other Work</span>
+          <span class="campaign-tag">Retail &amp; Hospitality</span>
+        </div>
+        <div class="campaign-right">
+          <span class="campaign-year">2019 — 2024</span>
+          <span class="campaign-arrow">↗</span>
+        </div>
+      </a>
+    </div>
+    <div style="text-align:center; margin: 32px 0 0;">
+      <a href="experience.html" class="view-all-link view-all-primary">
+        View full experience breakdown
+        <span style="margin-left:8px;">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Portfolio Grid -->
+  <section id="portfolio">
+    <p class="section-label reveal">RH <span>·</span> Portfolio</p>
+
+    <!-- Filter Tabs -->
+    <div class="filter-bar reveal">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="ads">Ads &amp; Social</button>
+      <button class="filter-btn" data-filter="design">Design</button>
+      <button class="filter-btn" data-filter="photo">Photography</button>
+      <button class="filter-btn" data-filter="video">Video</button>
+    </div>
+
+    <div class="portfolio-grid">
+
+      <div class="portfolio-card reveal" data-category="ads" data-slot="avenue-z-ads" data-lightbox="true" data-title="Paid Media Creatives — Avenue Z" data-tag="Ads & Social · Avenue Z">
+        <img src="images/avenue-z-ads.jpg" alt="Avenue Z Ads" onerror="this.style.display='none'">
+        <div class="portfolio-placeholder">
+          <span class="portfolio-placeholder-icon">🖼</span>
+          <span class="portfolio-placeholder-label">Add Avenue Z ad creative here</span>
+        </div>
+        <div class="edit-pencil">✎ Click to upload</div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-overlay-tag">Ads &amp; Social · Avenue Z</span>
+          <span class="portfolio-overlay-title">Paid Media Creatives — Avenue Z</span>
+        </div>
+        <span class="portfolio-overlay-arrow">↗</span>
+      </div>
+
+      <div class="portfolio-card reveal" data-category="ads" data-slot="warner-music" data-lightbox="true" data-title="Warner Music Latina Campaign" data-tag="Ads & Social · Roaring Concepts">
+        <img src="images/warner-music.jpg" alt="Warner Music Latina" onerror="this.style.display='none'">
+        <div class="portfolio-placeholder">
+          <span class="portfolio-placeholder-icon">🎵</span>
+          <span class="portfolio-placeholder-label">Add Warner Music Latina asset</span>
+        </div>
+        <div class="edit-pencil">✎ Click to upload</div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-overlay-tag">Ads &amp; Social · Roaring Concepts</span>
+          <span class="portfolio-overlay-title">Warner Music Latina Campaign</span>
+        </div>
+        <span class="portfolio-overlay-arrow">↗</span>
+      </div>
+
+      <div class="portfolio-card reveal" data-category="ads" data-slot="le-bureau" data-lightbox="true" data-title="LE Bureau Cowork — Social Growth" data-tag="Ads & Social · LE Bureau">
+        <img src="images/le-bureau.jpg" alt="LE Bureau Cowork" onerror="this.style.display='none'">
+        <div class="portfolio-placeholder">
+          <span class="portfolio-placeholder-icon">🏢</span>
+          <span class="portfolio-placeholder-label">Add LE Bureau Cowork asset</span>
+        </div>
+        <div class="edit-pencil">✎ Click to upload</div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-overlay-tag">Ads &amp; Social · LE Bureau</span>
+          <span class="portfolio-overlay-title">LE Bureau Cowork — Social Growth</span>
+        </div>
+        <span class="portfolio-overlay-arrow">↗</span>
+      </div>
+
+      <div class="portfolio-card reveal" data-category="ads" data-slot="quicklay" data-lightbox="true" data-title="Quicklay Beach Towel — Kickstarter" data-tag="Ads & Social · Quicklay">
+        <img src="images/quicklay.jpg" alt="Quicklay Beach Towel" onerror="this.style.display='none'">
+        <div class="portfolio-placeholder">
+          <span class="portfolio-placeholder-icon">🏖</span>
+          <span class="portfolio-placeholder-label">Add Quicklay asset</span>
+        </div>
+        <div class="edit-pencil">✎ Click to upload</div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-overlay-tag">Ads &amp; Social · Quicklay</span>
+          <span class="portfolio-overlay-title">Quicklay Beach Towel — Kickstarter</span>
+        </div>
+        <span class="portfolio-overlay-arrow">↗</span>
+      </div>
+
+      <div class="portfolio-card reveal" data-category="video" data-slot="avenue-z-video" data-video="true" data-title="Campaign Video Content — Avenue Z" data-tag="Video · Avenue Z">
+        <img src="images/avenue-z-video-thumb.jpg" alt="Avenue Z Video" onerror="this.style.display='none'">
+        <div class="portfolio-placeholder">
+          <span class="portfolio-placeholder-icon">🎬</span>
+          <span class="portfolio-placeholder-label">Add Avenue Z video or thumbnail</span>
+        </div>
+        <div class="video-badge">▶</div>
+        <div class="edit-pencil">✎ Click to upload / add URL</div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-overlay-tag">Video · Avenue Z</span>
+          <span class="portfolio-overlay-title">Campaign Video Content — Avenue Z</span>
+        </div>
+        <span class="portfolio-overlay-arrow">↗</span>
+      </div>
+
+      <div class="portfolio-card reveal" data-category="design" data-slot="f1-tshirt" data-lightbox="true" data-title="Formula 1 T-Shirt Series" data-tag="Design · Procreate">
+        <img src="images/f1-tshirt.jpg" alt="F1 T-Shirt Series" onerror="this.style.display='none'">
+        <div class="portfolio-placeholder">
+          <span class="portfolio-placeholder-icon">👕</span>
+          <span class="portfolio-placeholder-label">Add F1 t-shirt design</span>
+        </div>
+        <div class="edit-pencil">✎ Click to upload</div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-overlay-tag">Design · Procreate</span>
+          <span class="portfolio-overlay-title">Formula 1 T-Shirt Series</span>
+        </div>
+        <span class="portfolio-overlay-arrow">↗</span>
+      </div>
+
+      <div class="portfolio-card reveal" data-category="design" data-slot="make-a-wish" data-lightbox="true" data-title="Make-A-Wish Fundraiser Stickers" data-tag="Design · Illustration">
+        <img src="images/make-a-wish.jpg" alt="Make-A-Wish Stickers" onerror="this.style.display='none'">
+        <div class="portfolio-placeholder">
+          <span class="portfolio-placeholder-icon">⭐</span>
+          <span class="portfolio-placeholder-label">Add Make-A-Wish sticker design</span>
+        </div>
+        <div class="edit-pencil">✎ Click to upload</div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-overlay-tag">Design · Illustration</span>
+          <span class="portfolio-overlay-title">Make-A-Wish Fundraiser Stickers</span>
+        </div>
+        <span class="portfolio-overlay-arrow">↗</span>
+      </div>
+
+      <div class="portfolio-card reveal" data-category="design" data-slot="slnce" data-lightbox="true" data-title="SLNCE — Vintage Boutique Identity" data-tag="Design · Brand">
+        <img src="images/slnce.jpg" alt="SLNCE Business Cards" onerror="this.style.display='none'">
+        <div class="portfolio-placeholder">
+          <span class="portfolio-placeholder-icon">🃏</span>
+          <span class="portfolio-placeholder-label">Add SLNCE business card design</span>
+        </div>
+        <div class="edit-pencil">✎ Click to upload</div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-overlay-tag">Design · Brand</span>
+          <span class="portfolio-overlay-title">SLNCE — Vintage Boutique Identity</span>
+        </div>
+        <span class="portfolio-overlay-arrow">↗</span>
+      </div>
+
+      <div class="portfolio-card reveal" data-category="photo" data-slot="photo-1" data-lightbox="true" data-title="Photography" data-tag="Photography">
+        <img src="images/photo-1.jpg" alt="Photography" onerror="this.style.display='none'">
+        <div class="portfolio-placeholder">
+          <span class="portfolio-placeholder-icon">📷</span>
+          <span class="portfolio-placeholder-label">Add photo here</span>
+        </div>
+        <div class="edit-pencil">✎ Click to upload</div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-overlay-tag">Photography</span>
+          <span class="portfolio-overlay-title">Photography</span>
+        </div>
+        <span class="portfolio-overlay-arrow">↗</span>
+      </div>
+
+      <div class="portfolio-card reveal" data-category="photo" data-slot="photo-2" data-lightbox="true" data-title="Photography" data-tag="Photography">
+        <img src="images/photo-2.jpg" alt="Photography" onerror="this.style.display='none'">
+        <div class="portfolio-placeholder">
+          <span class="portfolio-placeholder-icon">📷</span>
+          <span class="portfolio-placeholder-label">Add photo here</span>
+        </div>
+        <div class="edit-pencil">✎ Click to upload</div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-overlay-tag">Photography</span>
+          <span class="portfolio-overlay-title">Photography</span>
+        </div>
+        <span class="portfolio-overlay-arrow">↗</span>
+      </div>
+
+      <div class="portfolio-card reveal" data-category="photo" data-slot="photo-3" data-lightbox="true" data-title="Photography" data-tag="Photography">
+        <img src="images/photo-3.jpg" alt="Photography" onerror="this.style.display='none'">
+        <div class="portfolio-placeholder">
+          <span class="portfolio-placeholder-icon">📷</span>
+          <span class="portfolio-placeholder-label">Add photo here</span>
+        </div>
+        <div class="edit-pencil">✎ Click to upload</div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-overlay-tag">Photography</span>
+          <span class="portfolio-overlay-title">Photography</span>
+        </div>
+        <span class="portfolio-overlay-arrow">↗</span>
+      </div>
+
+      <div class="portfolio-card reveal" data-category="photo" data-slot="photo-4" data-lightbox="true" data-title="Photography" data-tag="Photography">
+        <img src="images/photo-4.jpg" alt="Photography" onerror="this.style.display='none'">
+        <div class="portfolio-placeholder">
+          <span class="portfolio-placeholder-icon">📷</span>
+          <span class="portfolio-placeholder-label">Add photo here</span>
+        </div>
+        <div class="edit-pencil">✎ Click to upload</div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-overlay-tag">Photography</span>
+          <span class="portfolio-overlay-title">Photography</span>
+        </div>
+        <span class="portfolio-overlay-arrow">↗</span>
+      </div>
+
+    </div>
+
+
+  </section>
+
+  <!-- Case Study: GTV Workflow -->
+  <section id="case-study">
+    <p class="section-label reveal">RH <span>·</span> Case Study</p>
+    <div class="cs-header reveal">
+      <h2 class="cs-title">GTV<br><em>AI-Powered Creative Production</em></h2>
+      <p class="cs-intro">
+        Leveraged generative AI to transform creative production for five ecommerce health &amp; wellness brands — building autonomous agent workflows that scaled output from 30 assets per month to 300+ per week.
+      </p>
+    </div>
+    <div class="cs-stats reveal">
+      <div class="cs-stat">
+        <p class="cs-stat-num">300+</p>
+        <p class="cs-stat-label">Creatives per Week</p>
+      </div>
+      <div class="cs-stat">
+        <p class="cs-stat-num">2×</p>
+        <p class="cs-stat-label">ROAS on Top Creatives</p>
+      </div>
+      <div class="cs-stat">
+        <p class="cs-stat-num">10×</p>
+        <p class="cs-stat-label">Production Increase</p>
+      </div>
+    </div>
+    <div class="cs-blocks reveal">
+      <div class="cs-block">
+        <p class="cs-block-label">Challenge</p>
+        <p class="cs-block-text">Traditional creative workflows produced only 30 assets per month per client — far too slow for competitive ecommerce advertising that demands rapid testing and iteration. Product rendering accuracy was also critically low, with only ~10% of AI outputs being usable.</p>
+      </div>
+      <div class="cs-block">
+        <p class="cs-block-label">Approach</p>
+        <p class="cs-block-text">Developed a proprietary prompting formula optimised for the GTV platform using ChatGPT, refined over a month of testing. Built individual autonomous client agents capable of producing 15–20 creatives per session without manual intervention. Solved product rendering by creating a dedicated agent trained on 50+ reference images per client.</p>
+      </div>
+      <div class="cs-block">
+        <p class="cs-block-label">Results</p>
+        <p class="cs-block-text">Scaled production to 300+ creatives per week across all five clients. Top-performing creatives achieved 2× ROAS or higher, sustained over multiple weeks. Usable output improved from ~10% to 80%. Product feedback to GTV's development team directly influenced platform improvements benefiting all users.</p>
+      </div>
+    </div>
+    <div class="cs-image-grid reveal">
+      <div class="cs-image" data-slot="gtv-cs-1">
+        <img src="images/gtv-cs-1.jpg" alt="GTV workflow" onerror="this.style.display='none'">
+        <div class="portfolio-placeholder">
+          <span class="portfolio-placeholder-icon">📋</span>
+          <span class="portfolio-placeholder-label">gtv-cs-1.jpg</span>
+        </div>
+        <div class="edit-pencil">✎ Click to upload</div>
+      </div>
+      <div class="cs-image" data-slot="gtv-cs-2">
+        <img src="images/gtv-cs-2.jpg" alt="GTV AI creatives" onerror="this.style.display='none'">
+        <div class="portfolio-placeholder">
+          <span class="portfolio-placeholder-icon">📋</span>
+          <span class="portfolio-placeholder-label">gtv-cs-2.jpg</span>
+        </div>
+        <div class="edit-pencil">✎ Click to upload</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience">
+    <p class="section-label reveal">RH <span>·</span> Experience</p>
+    <div class="experience-list">
+
+      <div class="exp-item reveal">
+        <span class="exp-period">Dec 2025 — Present</span>
+        <div class="exp-main">
+          <p class="exp-role">Project Coordinator — Paid Media Intern</p>
+          <p class="exp-company">Avenue Z · Miami, FL</p>
+          <ul class="exp-bullets">
+            <li>Designed and implemented a centralised workflow and SLA system adopted by a 10-person paid media team, replacing fragmented Slack threads, spreadsheets, and ad hoc processes across a 14-account portfolio.</li>
+            <li>Established a daily task-tracking and campaign status hub that structured asset management, request intake, and performance visibility.</li>
+            <li>Standardised cross-functional communication between strategists, buyers, and creative teams, accelerating turnaround time and strengthening accountability across concurrent campaigns.</li>
+          </ul>
+        </div>
+        <span class="exp-location">Miami, FL</span>
+      </div>
+
+      <div class="exp-item reveal">
+        <span class="exp-period">Apr 2024 — Sep 2025</span>
+        <div class="exp-main">
+          <p class="exp-role">Assistant Manager</p>
+          <p class="exp-company">Hollister · Aventura, FL</p>
+          <ul class="exp-bullets">
+            <li>Directed daily operations of a $7M annual revenue retail store, leading 8 managers and 120+ associates across sales, service, and operational KPIs.</li>
+            <li>Increased customer satisfaction scores by 30% within one year through structured leadership and engagement initiatives.</li>
+            <li>Oversaw workforce scheduling, payroll allocation, and inventory coordination for 100+ employees.</li>
+          </ul>
+        </div>
+        <span class="exp-location">Aventura, FL</span>
+      </div>
+
+      <div class="exp-item reveal">
+        <span class="exp-period">Jan 2022 — May 2023</span>
+        <div class="exp-main">
+          <p class="exp-role">Marketing Account Director</p>
+          <p class="exp-company">Roaring Concepts · Miami, FL</p>
+          <ul class="exp-bullets">
+            <li>Spearheaded multi-channel campaigns for Celsius, Red Bull, and Warner Music Latina — increasing reach by 40% and engagement by 25% across target markets.</li>
+            <li>Managed and coordinated a 60-person cross-functional team, standardising KPI reporting and improving execution efficiency and client alignment.</li>
+          </ul>
+        </div>
+        <span class="exp-location">Miami, FL</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <p class="section-label reveal">RH <span>·</span> Skills &amp; Tools</p>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <p class="skill-num">01</p>
+        <h3 class="skill-name">Paid Media & Advertising</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Google Ads</span>
+          <span class="skill-tag">Facebook Ads</span>
+          <span class="skill-tag">Programmatic</span>
+          <span class="skill-tag">GMV Max</span>
+        </div>
+      </div>
+      <div class="skill-card reveal reveal-delay-1">
+        <p class="skill-num">02</p>
+        <h3 class="skill-name">CRM & Analytics</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">HubSpot</span>
+          <span class="skill-tag">Salesforce</span>
+          <span class="skill-tag">Triple Whale</span>
+          <span class="skill-tag">Refunnel</span>
+        </div>
+      </div>
+      <div class="skill-card reveal reveal-delay-2">
+        <p class="skill-num">03</p>
+        <h3 class="skill-name">Project Management</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Monday</span>
+          <span class="skill-tag">Asana</span>
+          <span class="skill-tag">Teamwork</span>
+          <span class="skill-tag">SLA Design</span>
+        </div>
+      </div>
+      <div class="skill-card reveal reveal-delay-1">
+        <p class="skill-num">04</p>
+        <h3 class="skill-name">Creative & Content</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Adobe Suite</span>
+          <span class="skill-tag">AI Creative Ops</span>
+          <span class="skill-tag">Canva</span>
+        </div>
+      </div>
+      <div class="skill-card reveal reveal-delay-2">
+        <p class="skill-num">05</p>
+        <h3 class="skill-name">Campaign Strategy</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Multi-Channel</span>
+          <span class="skill-tag">KPI Reporting</span>
+          <span class="skill-tag">Brand Marketing</span>
+        </div>
+      </div>
+      <div class="skill-card reveal reveal-delay-3">
+        <p class="skill-num">06</p>
+        <h3 class="skill-name">Leadership & Ops</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Team Management</span>
+          <span class="skill-tag">Workflow Design</span>
+          <span class="skill-tag">Cross-functional</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education">
+    <p class="section-label reveal">RH <span>·</span> Education</p>
+    <div class="edu-block reveal">
+      <span class="edu-year">May 2023</span>
+      <div>
+        <p class="edu-degree">Bachelor of Business Administration</p>
+        <p class="edu-school">Florida International University · Miami, FL<br>Major: Marketing &amp; International Business</p>
+        <div class="edu-details">
+          <span class="edu-badge">GPA 3.87</span>
+          <span class="edu-badge">Magna Cum Laude</span>
+          <span class="edu-badge">Top 10% of Class</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section id="certifications">
+    <p class="section-label reveal">RH <span>·</span> Certifications</p>
+    <div class="cert-list">
+      <div class="cert-item reveal">
+        <span class="cert-name">Google Ads Search Certification</span>
+        <span class="cert-issuer">Google</span>
+      </div>
+      <div class="cert-item reveal">
+        <span class="cert-name">Google Ads Measurement Certification</span>
+        <span class="cert-issuer">Google</span>
+      </div>
+      <div class="cert-item reveal">
+        <span class="cert-name">Programmatic Certified</span>
+        <span class="cert-issuer">Google</span>
+      </div>
+      <div class="cert-item reveal">
+        <span class="cert-name">Microsoft Office Specialist</span>
+        <span class="cert-issuer">Microsoft</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Languages -->
+  <section id="languages">
+    <p class="section-label reveal">RH <span>·</span> Languages</p>
+    <div class="lang-grid">
+      <div class="lang-card reveal">
+        <p class="lang-name">English</p>
+        <p class="lang-level">Fluent</p>
+        <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+      </div>
+      <div class="lang-card reveal reveal-delay-1">
+        <p class="lang-name">Arabic</p>
+        <p class="lang-level">Fluent</p>
+        <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+      </div>
+      <div class="lang-card reveal reveal-delay-2">
+        <p class="lang-name">Spanish</p>
+        <p class="lang-level">Intermediate</p>
+        <div class="lang-bar"><div class="lang-fill" style="width:60%"></div></div>
+      </div>
+      <div class="lang-card reveal reveal-delay-3">
+        <p class="lang-name">Portuguese</p>
+        <p class="lang-level">Intermediate</p>
+        <div class="lang-bar"><div class="lang-fill" style="width:60%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <p class="section-label reveal">RH <span>·</span> FAQ</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text">What types of roles are you open to?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>I'm focused on paid media, campaign strategy and marketing project coordination roles — ideally within a fast-paced agency or brand environment where data and creativity intersect.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text">What industries have you worked across?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>My experience spans digital marketing agencies, CPG and beverage brands (Celsius, Red Bull), entertainment (Warner Music Latina), and high-volume retail — giving me a versatile, cross-industry perspective.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text">Are you open to relocation or remote work?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Currently based in Weston, FL. Open to hybrid and remote opportunities, and happy to discuss relocation for the right role.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-q-text">What languages do you speak?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>I'm fluent in English and Arabic, with intermediate proficiency in Spanish and Portuguese — useful for campaigns targeting multicultural and Latin markets.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer / Contact -->
+  <footer id="contact">
+    <div class="footer-top">
+      <div>
+        <p class="footer-logo">Reem Habbal</p>
+        <p class="footer-tagline">Marketing strategist &amp; paid media specialist. Open to new opportunities.</p>
+      </div>
+      <div class="footer-contact">
+        <a href="mailto:reemhabbal3@gmail.com">reemhabbal3@gmail.com</a>
+        <a href="https://www.linkedin.com/in/reemhabbal/" target="_blank">linkedin.com/in/reemhabbal</a>
+        <a href="#">Weston, FL</a>
+      </div>
+      <div class="footer-links">
+        <a href="#campaigns">Work</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#education">Education</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Reem Habbal · All rights reserved</p>
+      <div class="footer-socials">
+        <a href="https://www.linkedin.com/in/reemhabbal/" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Edit Mode Toggle -->
+  <button id="edit-toggle"><span class="edit-dot"></span> Edit Mode</button>
+
+  <!-- Video URL Modal -->
+  <div id="video-modal">
+    <div class="video-modal-box">
+      <p class="video-modal-title">Add Video</p>
+      <p class="video-modal-sub">Paste a YouTube or Vimeo URL, or leave blank and upload a thumbnail image instead.</p>
+      <input id="video-url-input" class="video-modal-input" type="url" placeholder="https://www.youtube.com/watch?v=..." />
+      <div class="video-modal-actions">
+        <button class="video-modal-btn cancel" id="video-modal-cancel">Cancel</button>
+        <button class="video-modal-btn save" id="video-modal-save">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox">
+    <span id="lb-close" class="lightbox-close">×</span>
+    <div class="lightbox-inner">
+      <div id="lb-media"></div>
+      <div class="lightbox-meta">
+        <span id="lb-title" class="lightbox-title"></span>
+        <span id="lb-tag" class="lightbox-tag"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ─── Loader ────────────────────────────────────────────────────
+    window.addEventListener('load', () => {
+      setTimeout(() => document.getElementById('loader').classList.add('hidden'), 800);
+    });
+
+    // ─── Nav scroll state ──────────────────────────────────────────
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // ─── Scroll reveal ─────────────────────────────────────────────
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ─── FAQ accordion ─────────────────────────────────────────────
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    // ─── Custom cursor ─────────────────────────────────────────────
+    const cursor = document.getElementById('cursor');
+    let cx = 0, cy = 0, tx = 0, ty = 0;
+    document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; cursor.classList.add('visible'); });
+    document.querySelectorAll('a, button, .campaign-item, .faq-question').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expanded'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expanded'));
+    });
+    (function animateCursor() {
+      cx += (tx - cx) * 0.14;
+      cy += (ty - cy) * 0.14;
+      cursor.style.left = cx + 'px';
+      cursor.style.top  = cy + 'px';
+      requestAnimationFrame(animateCursor);
+    })();
+
+    // ─── Stat counter animation ────────────────────────────────────
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        const target = parseInt(el.dataset.count);
+        const suffix = el.dataset.suffix || '';
+        if (isNaN(target)) return; // skip "1st"
+        let start = null;
+        const duration = 1400;
+        const step = ts => {
+          if (!start) start = ts;
+          const p = Math.min((ts - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(eased * target) + suffix;
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+        statObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-num').forEach(el => {
+      statObserver.observe(el);
+    });
+
+    // Handle the "1st" card manually
+    const firstCard = document.querySelector('.stat-num[data-suffix="st"]');
+    if (firstCard) {
+      const firstObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.textContent = '1st';
+            firstObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      firstObserver.observe(firstCard);
+    }
+    // ─── Portfolio filter ──────────────────────────────────────────
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.portfolio-card').forEach(card => {
+          const match = filter === 'all' || card.dataset.category === filter;
+          card.classList.toggle('hidden-card', !match);
+        });
+        // Hide rows where all cards are filtered out
+        document.querySelectorAll('.portfolio-row').forEach(row => {
+          const hasVisible = row.querySelector('.portfolio-card:not(.hidden-card)');
+          row.style.display = hasVisible ? '' : 'none';
+        });
+      });
+    });
+
+    // ─── IndexedDB storage (no size limits) ───────────────────────
+    const DB = (() => {
+      const NAME = 'rh_portfolio', STORE = 'images', VER = 1;
+      function open() {
+        return new Promise((res, rej) => {
+          const r = indexedDB.open(NAME, VER);
+          r.onupgradeneeded = e => e.target.result.createObjectStore(STORE);
+          r.onsuccess = e => res(e.target.result);
+          r.onerror = e => rej(e.target.error);
+        });
+      }
+      return {
+        save(key, val) {
+          return open().then(db => new Promise((res, rej) => {
+            const tx = db.transaction(STORE, 'readwrite');
+            tx.objectStore(STORE).put(val, key);
+            tx.oncomplete = res; tx.onerror = e => rej(e.target.error);
+          }));
+        },
+        loadAll() {
+          return open().then(db => new Promise((res, rej) => {
+            const tx = db.transaction(STORE, 'readonly');
+            const out = {};
+            tx.objectStore(STORE).openCursor().onsuccess = e => {
+              const c = e.target.result;
+              if (c) { out[c.key] = c.value; c.continue(); } else res(out);
+            };
+            tx.onerror = e => rej(e.target.error);
+          }));
+        }
+      };
+    })();
+
+    // ─── Auto-assign text slot keys ────────────────────────────────
+    const TEXT_SELECTORS = '.hero-desc, .project-name, .project-tag, .service-name, .service-desc, .exp-role, .exp-company, .exp-bullets li, .blog-title, .blog-excerpt, .faq-q-text, .faq-answer p, .footer-tagline';
+    document.querySelectorAll(TEXT_SELECTORS).forEach(el => {
+      const section = el.closest('section, footer, #hero') || document.body;
+      const sId = section.id || section.tagName.toLowerCase();
+      const siblings = Array.from(section.querySelectorAll(TEXT_SELECTORS));
+      el.dataset.textSlot = sId + '-t' + siblings.indexOf(el);
+    });
+
+    // ─── Load saved images + text ──────────────────────────────────
+    DB.loadAll().then(stored => {
+      // images
+      document.querySelectorAll('[data-slot]').forEach(el => {
+        const slot = el.dataset.slot;
+        const saved = stored['portfolio_' + slot];
+        if (!saved) return;
+        if (saved.startsWith('VIDEO:')) {
+          el.dataset.videoUrl = saved.replace('VIDEO:', '');
+          el.querySelector('.portfolio-placeholder') && (el.querySelector('.portfolio-placeholder').style.display = 'none');
+          el.style.background = '#111';
+        } else {
+          let img = el.querySelector('img');
+          if (!img) { img = document.createElement('img'); el.prepend(img); }
+          img.src = saved; img.style.display = 'block';
+          const ph = el.querySelector('.portfolio-placeholder');
+          if (ph) ph.style.display = 'none';
+        }
+      });
+      // text
+      document.querySelectorAll('[data-text-slot]').forEach(el => {
+        const saved = stored['text_' + el.dataset.textSlot];
+        if (saved != null) el.textContent = saved;
+      });
+    });
+
+    // ─── Edit Mode ─────────────────────────────────────────────────
+    const editToggle = document.getElementById('edit-toggle');
+    let editMode = false;
+    let pendingVideoSlot = null;
+    let activeSlotEl = null;
+
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file'; fileInput.accept = 'image/*';
+    fileInput.style.cssText = 'position:fixed;top:-999px;left:-999px;opacity:0;';
+    document.body.appendChild(fileInput);
+
+    function compressImage(file, callback) {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        const MAX = 1400;
+        let w = img.width, h = img.height;
+        if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(url);
+        callback(canvas.toDataURL('image/jpeg', 0.82));
+      };
+      img.src = url;
+    }
+
+    editToggle.addEventListener('click', () => {
+      editMode = !editMode;
+      document.body.classList.toggle('edit-mode', editMode);
+      editToggle.classList.toggle('active', editMode);
+      editToggle.innerHTML = editMode
+        ? '<span class="edit-dot"></span> Exit Edit Mode'
+        : '<span class="edit-dot"></span> Edit Mode';
+      document.querySelectorAll('[data-text-slot]').forEach(el => {
+        el.contentEditable = editMode ? 'true' : 'false';
+        if (!editMode) el.blur();
+      });
+    });
+
+    // ─── Auto-save text on blur ─────────────────────────────────────
+    document.addEventListener('blur', e => {
+      const el = e.target;
+      if (!editMode || !el.dataset.textSlot) return;
+      DB.save('text_' + el.dataset.textSlot, el.textContent);
+      el.classList.add('text-saved-flash');
+      setTimeout(() => el.classList.remove('text-saved-flash'), 600);
+    }, true);
+
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+      const target = pendingVideoSlot || activeSlotEl;
+      if (!target) return;
+      const slot = target.dataset.slot;
+      compressImage(file, data => {
+        DB.save('portfolio_' + slot, data);
+        let img = target.querySelector('img');
+        if (!img) { img = document.createElement('img'); target.prepend(img); }
+        img.src = data; img.style.display = 'block';
+        const ph = target.querySelector('.portfolio-placeholder');
+        if (ph) ph.style.display = 'none';
+        pendingVideoSlot = null; activeSlotEl = null; fileInput.value = '';
+      });
+    });
+
+    // clicking pencil overlay on image/video slots
+    document.querySelectorAll('[data-slot]').forEach(el => {
+      const pencil = el.querySelector('.edit-pencil');
+      if (!pencil) return;
+      pencil.addEventListener('click', (e) => {
+        if (!editMode) return;
+        e.stopPropagation();
+        if (el.dataset.video === 'true') {
+          pendingVideoSlot = el;
+          document.getElementById('video-url-input').value = el.dataset.videoUrl || '';
+          document.getElementById('video-modal').classList.add('open');
+        } else {
+          activeSlotEl = el;
+          fileInput.click();
+        }
+      });
+    });
+
+    // Video modal
+    document.getElementById('video-modal-cancel').addEventListener('click', () => {
+      document.getElementById('video-modal').classList.remove('open');
+      pendingVideoSlot = null;
+    });
+    document.getElementById('video-modal-save').addEventListener('click', () => {
+      const url = document.getElementById('video-url-input').value.trim();
+      if (url && pendingVideoSlot) {
+        const slot = pendingVideoSlot.dataset.slot;
+        localStorage.setItem('portfolio_' + slot, 'VIDEO:' + url);
+        pendingVideoSlot.dataset.videoUrl = url;
+        const ph = pendingVideoSlot.querySelector('.portfolio-placeholder');
+        if (ph) ph.style.display = 'none';
+        pendingVideoSlot.style.background = '#111';
+      } else if (!url && pendingVideoSlot) {
+        // fallback: close modal and trigger thumbnail upload via unified fileInput listener
+        document.getElementById('video-modal').classList.remove('open');
+        fileInput.click();
+        return;
+      }
+      document.getElementById('video-modal').classList.remove('open');
+      pendingVideoSlot = null;
+    });
+
+    // ─── Lightbox ──────────────────────────────────────────────────
+    const lightbox = document.getElementById('lightbox');
+    const lbMedia  = document.getElementById('lb-media');
+    const lbTitle  = document.getElementById('lb-title');
+    const lbTag    = document.getElementById('lb-tag');
+
+    document.querySelectorAll('.portfolio-card[data-lightbox], .cs-image[data-slot]').forEach(card => {
+      card.addEventListener('click', () => {
+        if (editMode) return; // don't open lightbox in edit mode
+        lbTitle.textContent = card.dataset.title || '';
+        lbTag.textContent   = card.dataset.tag   || '';
+        // video
+        if (card.dataset.videoUrl) {
+          let embedUrl = card.dataset.videoUrl;
+          embedUrl = embedUrl.replace('watch?v=', 'embed/').replace('youtu.be/', 'www.youtube.com/embed/');
+          lbMedia.innerHTML = `<iframe class="lightbox-video" src="${embedUrl}" allowfullscreen></iframe>`;
+          lightbox.classList.add('open');
+          return;
+        }
+        const img = card.querySelector('img');
+        if (img && img.style.display !== 'none' && img.src) {
+          lbMedia.innerHTML = `<img class="lightbox-media" src="${img.src}" alt="${card.dataset.title || ''}" />`;
+          lightbox.classList.add('open');
+        }
+      });
+    });
+
+    document.getElementById('lb-close').addEventListener('click', () => lightbox.classList.remove('open'));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') {
+      lightbox.classList.remove('open');
+      document.getElementById('video-modal').classList.remove('open');
+    }});
+
+  </script>
+</body>
+</html>
