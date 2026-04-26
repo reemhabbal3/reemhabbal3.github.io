@@ -703,6 +703,27 @@
       el.dataset.textSlot = sId + '-t' + siblings.indexOf(el);
     });
 
+    // ─── Default file-based images ────────────────────────────────
+    const DEFAULT_IMAGES = {
+      'az-as-1': 'images/az-as-1.png', 'az-as-2': 'images/az-as-2.png', 'az-as-3': 'images/az-as-3.png',
+      'az-cl-1': 'images/az-cl-1.png', 'az-cl-2': 'images/az-cl-2.png', 'az-cl-3': 'images/az-cl-3.png',
+      'az-cl-4': 'images/az-cl-4.png', 'az-cl-5': 'images/az-cl-5.png', 'az-cl-6': 'images/az-cl-6.png',
+      'az-he-1': 'images/az-he-1.png', 'az-he-2': 'images/az-he-2.png', 'az-he-3': 'images/az-he-3.png',
+      'az-he-4': 'images/az-he-4.png', 'az-he-5': 'images/az-he-5.png', 'az-he-6': 'images/az-he-6.png',
+      'az-kz-1': 'images/az-kz-1.png', 'az-kz-2': 'images/az-kz-2.png',
+      'az-kp-1': 'images/az-kp-1.png',
+      'az-sn-1': 'images/az-sn-1.png', 'az-sn-2': 'images/az-sn-2.png', 'az-sn-3': 'images/az-sn-3.png',
+      'az-sn-4': 'images/az-sn-4.png', 'az-sn-5': 'images/az-sn-5.png', 'az-sn-6': 'images/az-sn-6.png',
+    };
+    document.querySelectorAll('[data-slot]').forEach(el => {
+      const src = DEFAULT_IMAGES[el.dataset.slot];
+      if (!src) return;
+      let img = el.querySelector('img');
+      if (!img) { img = document.createElement('img'); el.prepend(img); }
+      img.src = src; img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+      const ph = el.querySelector('.placeholder'); if (ph) ph.style.display = 'none';
+    });
+
     // ─── Load saved images + text ──────────────────────────────────
     DB.loadAll().then(stored => {
       // images
