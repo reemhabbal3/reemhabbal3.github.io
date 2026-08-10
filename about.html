@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Reem Habbal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --white: #ffffff; --gray: #999; --black: #0a0a0a;
+      --accent: #C2654A; --accent-soft: rgba(194,101,74,0.12);
+      --border: rgba(255,255,255,0.08); --font: "Inter", sans-serif;
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: var(--font); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+    /* ─── Loader ───────────────────────────────────────────────── */
+    #loader { position: fixed; inset: 0; z-index: 9999; background: var(--black); display: flex; align-items: center; justify-content: center; transition: opacity 0.6s var(--ease), visibility 0.6s; }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-text { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); animation: loaderPulse 1s ease-in-out infinite alternate; }
+    @keyframes loaderPulse { from { opacity: 0.3; } to { opacity: 1; } }
+
+    /* ─── Cursor ───────────────────────────────────────────────── */
+    #cursor { position: fixed; width: 10px; height: 10px; background: var(--white); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width 0.25s var(--ease), height 0.25s var(--ease), background 0.25s; }
+    #cursor.expanded { width: 36px; height: 36px; background: var(--accent); }
+
+    /* ─── Nav ──────────────────────────────────────────────────── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 24px 40px; transition: background 0.4s var(--ease), backdrop-filter 0.4s; }
+    nav.scrolled { background: rgba(10,10,10,0.88); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+    .nav-back { font-size: 12px; color: var(--gray); letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.25s; }
+    .nav-back:hover { color: var(--accent); }
+
+    /* ─── Page Header ──────────────────────────────────────────── */
+    .page-header { padding: 160px 40px 80px; border-bottom: 1px solid var(--border); animation: fadeUp 0.9s var(--ease) both; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+    .page-header-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); margin-bottom: 24px; }
+    .page-header-label span { color: rgba(255,255,255,0.2); margin: 0 8px; }
+    .page-header-title { font-size: clamp(48px, 7vw, 88px); font-weight: 300; letter-spacing: -0.03em; line-height: 1.03; }
+    .page-header-title em { font-style: italic; color: var(--accent); }
+
+    /* ─── Jump Nav ─────────────────────────────────────────────── */
+    .jump-nav { display: flex; gap: 10px; padding: 28px 40px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .jump-link { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--border); padding: 8px 18px; border-radius: 100px; color: var(--gray); transition: background 0.2s, color 0.2s, border-color 0.2s; }
+    .jump-link:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
+
+    /* ─── Sections ─────────────────────────────────────────────── */
+    .about-section { padding: 80px 40px; border-bottom: 1px solid var(--border); scroll-margin-top: 80px; }
+    .section-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray); margin-bottom: 40px; }
+    .section-label span { color: rgba(255,255,255,0.2); margin: 0 8px; }
+    .section-title { font-size: clamp(28px, 4vw, 48px); font-weight: 300; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 32px; }
+    .section-title em { font-style: italic; color: var(--accent); }
+    .body-text { font-size: 15px; color: var(--gray); line-height: 1.85; max-width: 680px; }
+    .body-text + .body-text { margin-top: 20px; }
+
+    /* ─── Bio grid ─────────────────────────────────────────────── */
+    .bio-grid { display: grid; grid-template-columns: 1fr 360px; gap: 80px; align-items: start; }
+    .bio-photo { position: sticky; top: 100px; }
+    .bio-photo img { width: 100%; border-radius: 2px; }
+
+    /* ─── Media slots ──────────────────────────────────────────── */
+    .media-slot { position: relative; background: #111; border-radius: 2px; overflow: hidden; cursor: pointer; }
+    .media-slot img { width: 100%; height: 100%; object-fit: cover; }
+    .placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+    .placeholder-icon { font-size: 24px; opacity: 0.2; }
+    .placeholder-label { font-size: 11px; color: var(--gray); opacity: 0.5; }
+    .edit-pencil { display: none; position: absolute; inset: 0; background: rgba(194,101,74,0.15); border: 1px dashed var(--accent); align-items: center; justify-content: center; font-size: 12px; color: var(--accent); letter-spacing: 0.08em; }
+    body.edit-mode .edit-pencil { display: flex; }
+    body.edit-mode .media-slot { cursor: pointer; }
+
+    /* ─── Art grid ─────────────────────────────────────────────── */
+    .art-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 40px; }
+    .art-slot { aspect-ratio: 1; }
+    .art-slot .media-slot { height: 100%; }
+
+    /* ─── Pinterest ────────────────────────────────────────────── */
+    .pinterest-card { display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--border); padding: 32px 40px; border-radius: 2px; margin-top: 40px; transition: border-color 0.25s; }
+    .pinterest-card:hover { border-color: var(--accent); }
+    .pinterest-left h3 { font-size: 20px; font-weight: 300; margin-bottom: 8px; }
+    .pinterest-left p { font-size: 13px; color: var(--gray); }
+    .pinterest-arrow { font-size: 24px; color: var(--gray); transition: color 0.25s, transform 0.25s; }
+    .pinterest-card:hover .pinterest-arrow { color: var(--accent); transform: rotate(0deg) scale(1.2); }
+
+    /* ─── Travel grid ──────────────────────────────────────────── */
+    .travel-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-top: 40px; }
+    .travel-slot { position: relative; }
+    .travel-slot .media-slot { height: 320px; }
+    .travel-caption { font-size: 11px; color: var(--gray); margin-top: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* ─── Blog ─────────────────────────────────────────────────── */
+    .blog-placeholder { border: 1px dashed var(--border); padding: 60px 40px; text-align: center; border-radius: 2px; margin-top: 40px; }
+    .blog-placeholder-label { font-size: 13px; color: var(--gray); margin-bottom: 12px; }
+    .blog-placeholder-sub { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* ─── Footer ───────────────────────────────────────────────── */
+    footer { padding: 60px 40px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .footer-copy { font-size: 11px; color: var(--gray); }
+    .footer-back { font-size: 11px; color: var(--gray); letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.25s; }
+    .footer-back:hover { color: var(--accent); }
+
+    /* ─── Reveal ───────────────────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .page-header, .about-section, .jump-nav { padding-left: 24px; padding-right: 24px; }
+      .bio-grid { grid-template-columns: 1fr; }
+      .bio-photo { position: static; }
+      .art-grid { grid-template-columns: repeat(2, 1fr); }
+      .travel-grid { grid-template-columns: 1fr; }
+      .pinterest-card { flex-direction: column; align-items: flex-start; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loader"><span class="loader-text">Loading</span></div>
+  <div id="cursor"></div>
+
+  <nav id="nav">
+    <a href="portfolio.html" class="nav-logo">Reem Habbal</a>
+    <a href="portfolio.html" class="nav-back">← Back</a>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-header-label">RH <span>·</span> About</p>
+    <h1 class="page-header-title">Beyond the<br><em>résumé.</em></h1>
+  </div>
+
+  <div class="jump-nav">
+    <a href="#bio" class="jump-link">Bio</a>
+    <a href="#art" class="jump-link">Art</a>
+    <a href="#pinterest" class="jump-link">Pinterest</a>
+    <a href="#travel" class="jump-link">Travel</a>
+    <a href="#writing" class="jump-link">Writing</a>
+  </div>
+
+  <!-- Bio -->
+  <div class="about-section reveal" id="bio">
+    <p class="section-label">RH <span>·</span> Bio</p>
+    <div class="bio-grid">
+      <div>
+        <h2 class="section-title">The person<br>behind the <em>work.</em></h2>
+        <p class="body-text">Most marketing teams are still treating AI like a shortcut. I build it like infrastructure. As a Forward Deployed Creative, I design end-to-end AI production systems that turn generative tools into actual creative pipelines — from brand strategy and prompt architecture to campaign-ready video, ad creative, and visual content at scale.</p>
+        <p class="body-text">The difference between AI that produces noise and AI that produces on-brand output is process design. That's what I do. Over the past year I've built and managed multi-client creative workflows across verticals including travel, consumer goods, and tech — handling everything from creative direction to production logic to delivery.</p>
+        <p class="body-text">Native Arabic and English speaker with a real interest in how AI creative is reshaping brand production across MENA markets. I'm drawn to brands that take culture seriously and build things that actually land in the world. The intersection of creative strategy and AI is where I've planted my flag — and it's still early enough to matter.</p>
+      </div>
+      <div class="bio-photo">
+        <div class="media-slot" data-slot="about-photo" style="height: 480px;">
+          <div class="placeholder"><span class="placeholder-icon">🖼</span><span class="placeholder-label">about-photo.jpg</span></div>
+          <div class="edit-pencil">✎ Upload photo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Art -->
+  <div class="about-section reveal" id="art">
+    <p class="section-label">RH <span>·</span> Art</p>
+    <h2 class="section-title">Paintings,<br>drawings & <em>series.</em></h2>
+    <p class="body-text">Art has always been the other side of how I think — less about performance, more about process. I work across gouache, illustration, and mixed media.</p>
+    <div class="art-grid">
+      <div class="art-slot"><div class="media-slot" data-slot="art-1"><div class="placeholder"><span class="placeholder-icon">🎨</span><span class="placeholder-label">art-1.jpg</span></div><div class="edit-pencil">✎ Upload</div></div></div>
+      <div class="art-slot"><div class="media-slot" data-slot="art-2"><div class="placeholder"><span class="placeholder-icon">🎨</span><span class="placeholder-label">art-2.jpg</span></div><div class="edit-pencil">✎ Upload</div></div></div>
+      <div class="art-slot"><div class="media-slot" data-slot="art-3"><div class="placeholder"><span class="placeholder-icon">🎨</span><span class="placeholder-label">art-3.jpg</span></div><div class="edit-pencil">✎ Upload</div></div></div>
+      <div class="art-slot"><div class="media-slot" data-slot="art-4"><div class="placeholder"><span class="placeholder-icon">🎨</span><span class="placeholder-label">art-4.jpg</span></div><div class="edit-pencil">✎ Upload</div></div></div>
+      <div class="art-slot"><div class="media-slot" data-slot="art-5"><div class="placeholder"><span class="placeholder-icon">🎨</span><span class="placeholder-label">art-5.jpg</span></div><div class="edit-pencil">✎ Upload</div></div></div>
+      <div class="art-slot"><div class="media-slot" data-slot="art-6"><div class="placeholder"><span class="placeholder-icon">🎨</span><span class="placeholder-label">art-6.jpg</span></div><div class="edit-pencil">✎ Upload</div></div></div>
+    </div>
+  </div>
+
+  <!-- Pinterest -->
+  <div class="about-section reveal" id="pinterest">
+    <p class="section-label">RH <span>·</span> Pinterest</p>
+    <h2 class="section-title">Curated<br><em>inspiration.</em></h2>
+    <p class="body-text">From Formula 1 design to my gouache series — a visual archive of things that catch my eye and shape how I think about creative work.</p>
+    <a href="https://www.pinterest.com/reemos13/" target="_blank" class="pinterest-card">
+      <div class="pinterest-left">
+        <h3>@reemos13</h3>
+        <p>pinterest.com/reemos13 · F1 Series · Gouache · Inspiration</p>
+      </div>
+      <span class="pinterest-arrow">↗</span>
+    </a>
+  </div>
+
+  <!-- Travel -->
+  <div class="about-section reveal" id="travel">
+    <p class="section-label">RH <span>·</span> Travel</p>
+    <h2 class="section-title">Places that<br><em>shaped me.</em></h2>
+    <p class="body-text">Raised between cultures, I travel the same way I work — looking for what makes a place feel like itself. These are some of the moments that stuck.</p>
+    <div class="travel-grid">
+      <div class="travel-slot">
+        <div class="media-slot" data-slot="travel-1" style="height:320px;"><div class="placeholder"><span class="placeholder-icon">✈️</span><span class="placeholder-label">travel-1.jpg</span></div><div class="edit-pencil">✎ Upload</div></div>
+        <p class="travel-caption">Location</p>
+      </div>
+      <div class="travel-slot">
+        <div class="media-slot" data-slot="travel-2" style="height:320px;"><div class="placeholder"><span class="placeholder-icon">✈️</span><span class="placeholder-label">travel-2.jpg</span></div><div class="edit-pencil">✎ Upload</div></div>
+        <p class="travel-caption">Location</p>
+      </div>
+      <div class="travel-slot">
+        <div class="media-slot" data-slot="travel-3" style="height:320px;"><div class="placeholder"><span class="placeholder-icon">✈️</span><span class="placeholder-label">travel-3.jpg</span></div><div class="edit-pencil">✎ Upload</div></div>
+        <p class="travel-caption">Location</p>
+      </div>
+      <div class="travel-slot">
+        <div class="media-slot" data-slot="travel-4" style="height:320px;"><div class="placeholder"><span class="placeholder-icon">✈️</span><span class="placeholder-label">travel-4.jpg</span></div><div class="edit-pencil">✎ Upload</div></div>
+        <p class="travel-caption">Location</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Writing -->
+  <div class="about-section reveal" id="writing">
+    <p class="section-label">RH <span>·</span> Writing</p>
+    <h2 class="section-title">Thoughts<br>in <em>progress.</em></h2>
+    <p class="body-text">Occasional writing on AI creative, brand strategy, and what's actually changing in how content gets made. Coming soon.</p>
+    <div class="blog-placeholder">
+      <p class="blog-placeholder-label">No posts yet — check back soon.</p>
+      <p class="blog-placeholder-sub">First post coming soon</p>
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-copy">© 2025 Reem Habbal</span>
+    <a href="portfolio.html" class="footer-back">Back to portfolio ↗</a>
+  </footer>
+
+  <script>
+    // Loader
+    window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('hidden'), 400));
+
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    let cx = 0, cy = 0, tx = 0, ty = 0;
+    document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+    document.querySelectorAll('a, button, [data-slot]').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expanded'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expanded'));
+    });
+    (function tick() { cx += (tx-cx)*0.14; cy += (ty-cy)*0.14; cursor.style.left=cx+'px'; cursor.style.top=cy+'px'; requestAnimationFrame(tick); })();
+  </script>
+</body>
+</html>

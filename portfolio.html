@@ -212,6 +212,18 @@
     }
     .marquee-sep { color: rgba(255,255,255,0.2); }
 
+    /* ─── About ──────────────────────────────────────────────────── */
+    #about { padding: 80px 40px; }
+    .about-grid { display: grid; grid-template-columns: 1fr 380px; gap: 80px; align-items: start; }
+    .about-text { display: flex; flex-direction: column; gap: 20px; }
+    .about-bio { font-size: 15px; color: var(--gray); line-height: 1.85; }
+    .about-image-slot { position: sticky; top: 100px; }
+    @media (max-width: 768px) {
+      #about { padding: 60px 24px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-image-slot { position: static; }
+    }
+
     /* ─── Experience ────────────────────────────────────────────── */
     #experience .experience-list { display: flex; flex-direction: column; }
     .exp-item {
@@ -716,6 +728,7 @@
       <li><a href="#experience">Experience</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#education">Education</a></li>
+      <li><a href="about.html">About</a></li>
     </ul>
     <a href="#contact" class="nav-cta">Contact</a>
   </nav>
@@ -772,6 +785,25 @@
       <div class="marquee-item">Team Leadership <span class="marquee-sep">·</span></div>
     </div>
   </div>
+
+  <!-- About -->
+  <section id="about">
+    <p class="section-label reveal">RH <span>·</span> About</p>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p class="about-bio">Most marketing teams are still treating AI like a shortcut. I build it like infrastructure. As a Forward Deployed Creative, I design end-to-end AI production systems that turn generative tools into actual creative pipelines — from brand strategy and prompt architecture to campaign-ready video, ad creative, and visual content at scale.</p>
+        <p class="about-bio">The difference between AI that produces noise and AI that produces on-brand output is process design. That's what I do. Over the past year I've built and managed multi-client creative workflows across verticals including travel, consumer goods, and tech — handling everything from creative direction to production logic to delivery.</p>
+        <p class="about-bio">Native Arabic and English speaker with a real interest in how AI creative is reshaping brand production across MENA markets. The intersection of creative strategy and AI is where I've planted my flag — and it's still early enough to matter.</p>
+        <a href="about.html" class="view-all-link" style="display:inline-flex;align-items:center;gap:8px;margin-top:32px;">More about me <span>↗</span></a>
+      </div>
+      <div class="about-image-slot">
+        <div class="media-slot" data-slot="about-photo" style="height:420px;">
+          <div class="placeholder"><span class="placeholder-icon">🖼</span><span class="placeholder-label">about-photo.jpg</span></div>
+          <div class="edit-pencil">✎ Upload photo</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Key Achievements -->
   <section id="achievements">
@@ -848,20 +880,9 @@
           <span class="campaign-arrow">↗</span>
         </div>
       </a>
-      <a href="experience.html#bjj" class="campaign-item reveal reveal-delay-4">
-        <div class="campaign-left">
-          <span class="campaign-num">05</span>
-          <span class="campaign-name">BJJ Club</span>
-          <span class="campaign-tag">Leadership</span>
-        </div>
-        <div class="campaign-right">
-          <span class="campaign-year">Jan 2022 — May 2023</span>
-          <span class="campaign-arrow">↗</span>
-        </div>
-      </a>
       <a href="experience.html#other" class="campaign-item reveal reveal-delay-4">
         <div class="campaign-left">
-          <span class="campaign-num">06</span>
+          <span class="campaign-num">05</span>
           <span class="campaign-name">Other Work</span>
           <span class="campaign-tag">Retail &amp; Hospitality</span>
         </div>
