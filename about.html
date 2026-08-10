@@ -288,11 +288,33 @@
       }
     });
 
+    // Text editing
+    const TEXT_SELECTORS = '.body-text, .section-title, .travel-caption, .travel-commentary, .blog-placeholder-label';
+    const TEXT_STORAGE = 'about-text-v1';
+    const savedText = JSON.parse(localStorage.getItem(TEXT_STORAGE) || '{}');
+
+    // Restore saved text
+    document.querySelectorAll(TEXT_SELECTORS).forEach((el, i) => {
+      el.dataset.textId = i;
+      if (savedText[i] !== undefined) el.innerHTML = savedText[i];
+    });
+
     editBtn.addEventListener('click', () => {
       editMode = !editMode;
       document.body.classList.toggle('edit-mode', editMode);
       editBtn.textContent = editMode ? '✓ Done' : '✎ Edit';
       editBtn.classList.toggle('active', editMode);
+
+      document.querySelectorAll(TEXT_SELECTORS).forEach(el => {
+        el.contentEditable = editMode ? 'true' : 'false';
+        el.style.outline = editMode ? '1px dashed rgba(194,101,74,0.4)' : '';
+        el.style.padding = editMode ? '4px' : '';
+        el.style.cursor = editMode ? 'text' : '';
+        if (!editMode) {
+          savedText[el.dataset.textId] = el.innerHTML;
+          localStorage.setItem(TEXT_STORAGE, JSON.stringify(savedText));
+        }
+      });
     });
 
     document.querySelectorAll('[data-slot]').forEach(el => {
