@@ -95,6 +95,9 @@
     .travel-slot { position: relative; }
     .travel-slot .media-slot { height: 320px; }
     .travel-caption { font-size: 11px; color: var(--gray); margin-top: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .travel-commentary { font-size: 13px; color: var(--gray); line-height: 1.7; margin-top: 8px; opacity: 0.7; }
+    .pinterest-preview { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 2px; }
+    .pinterest-preview .media-slot { height: 260px; }
 
     /* ─── Blog ─────────────────────────────────────────────────── */
     .blog-placeholder { border: 1px dashed var(--border); padding: 60px 40px; text-align: center; border-radius: 2px; margin-top: 40px; }
@@ -191,6 +194,11 @@
       </div>
       <span class="pinterest-arrow">↗</span>
     </a>
+    <div class="pinterest-preview">
+      <div class="media-slot" data-slot="pinterest-1"><div class="placeholder"><span class="placeholder-icon">📌</span><span class="placeholder-label">pinterest-1.jpg</span></div><div class="edit-pencil">✎ Upload</div></div>
+      <div class="media-slot" data-slot="pinterest-2"><div class="placeholder"><span class="placeholder-icon">📌</span><span class="placeholder-label">pinterest-2.jpg</span></div><div class="edit-pencil">✎ Upload</div></div>
+      <div class="media-slot" data-slot="pinterest-3"><div class="placeholder"><span class="placeholder-icon">📌</span><span class="placeholder-label">pinterest-3.jpg</span></div><div class="edit-pencil">✎ Upload</div></div>
+    </div>
   </div>
 
   <!-- Travel -->
@@ -202,18 +210,22 @@
       <div class="travel-slot">
         <div class="media-slot" data-slot="travel-1" style="height:320px;"><div class="placeholder"><span class="placeholder-icon">✈️</span><span class="placeholder-label">travel-1.jpg</span></div><div class="edit-pencil">✎ Upload</div></div>
         <p class="travel-caption">Location</p>
+        <p class="travel-commentary">Add a note about this place — what it felt like, why it stuck.</p>
       </div>
       <div class="travel-slot">
         <div class="media-slot" data-slot="travel-2" style="height:320px;"><div class="placeholder"><span class="placeholder-icon">✈️</span><span class="placeholder-label">travel-2.jpg</span></div><div class="edit-pencil">✎ Upload</div></div>
         <p class="travel-caption">Location</p>
+        <p class="travel-commentary">Add a note about this place — what it felt like, why it stuck.</p>
       </div>
       <div class="travel-slot">
         <div class="media-slot" data-slot="travel-3" style="height:320px;"><div class="placeholder"><span class="placeholder-icon">✈️</span><span class="placeholder-label">travel-3.jpg</span></div><div class="edit-pencil">✎ Upload</div></div>
         <p class="travel-caption">Location</p>
+        <p class="travel-commentary">Add a note about this place — what it felt like, why it stuck.</p>
       </div>
       <div class="travel-slot">
         <div class="media-slot" data-slot="travel-4" style="height:320px;"><div class="placeholder"><span class="placeholder-icon">✈️</span><span class="placeholder-label">travel-4.jpg</span></div><div class="edit-pencil">✎ Upload</div></div>
         <p class="travel-caption">Location</p>
+        <p class="travel-commentary">Add a note about this place — what it felt like, why it stuck.</p>
       </div>
     </div>
   </div>
