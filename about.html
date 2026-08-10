@@ -99,6 +99,13 @@
     .pinterest-preview { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 2px; }
     .pinterest-preview .media-slot { height: 260px; }
 
+    /* ─── Edit Mode ────────────────────────────────────────────── */
+    #edit-btn { position: fixed; bottom: 28px; right: 28px; z-index: 200; background: var(--white); color: var(--black); border: none; padding: 10px 20px; border-radius: 100px; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; transition: background 0.2s, transform 0.2s; }
+    #edit-btn:hover { background: var(--accent); color: var(--white); }
+    #edit-btn.active { background: var(--accent); color: var(--white); }
+    body.edit-mode .media-slot { cursor: pointer; outline: 1px dashed rgba(194,101,74,0.4); }
+    body.edit-mode .media-slot .edit-pencil { display: flex; }
+
     /* ─── Blog ─────────────────────────────────────────────────── */
     .blog-placeholder { border: 1px dashed var(--border); padding: 60px 40px; text-align: center; border-radius: 2px; margin-top: 40px; }
     .blog-placeholder-label { font-size: 13px; color: var(--gray); margin-bottom: 12px; }
@@ -241,6 +248,8 @@
     </div>
   </div>
 
+  <button id="edit-btn">✎ Edit</button>
+
   <footer>
     <span class="footer-copy">© 2025 Reem Habbal</span>
     <a href="portfolio.html" class="footer-back">Back to portfolio ↗</a>
@@ -260,6 +269,56 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
     }, { threshold: 0.08 });
     reveals.forEach(el => observer.observe(el));
+
+    // Edit mode
+    const editBtn = document.getElementById('edit-btn');
+    let editMode = false;
+    const STORAGE_KEY = 'about-images-v1';
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+    // Restore saved images
+    Object.entries(saved).forEach(([slot, src]) => {
+      const el = document.querySelector(`[data-slot="${slot}"]`);
+      if (el) {
+        let img = el.querySelector('img');
+        if (!img) { img = document.createElement('img'); img.style.cssText = 'width:100%;height:100%;object-fit:cover;position:relative;z-index:1;'; el.prepend(img); }
+        img.src = src;
+        const ph = el.querySelector('.placeholder');
+        if (ph) ph.style.display = 'none';
+      }
+    });
+
+    editBtn.addEventListener('click', () => {
+      editMode = !editMode;
+      document.body.classList.toggle('edit-mode', editMode);
+      editBtn.textContent = editMode ? '✓ Done' : '✎ Edit';
+      editBtn.classList.toggle('active', editMode);
+    });
+
+    document.querySelectorAll('[data-slot]').forEach(el => {
+      el.addEventListener('click', () => {
+        if (!editMode) return;
+        const input = document.createElement('input');
+        input.type = 'file'; input.accept = 'image/*';
+        input.onchange = e => {
+          const file = e.target.files[0]; if (!file) return;
+          const reader = new FileReader();
+          reader.onload = ev => {
+            const src = ev.target.result;
+            const slot = el.dataset.slot;
+            let img = el.querySelector('img');
+            if (!img) { img = document.createElement('img'); img.style.cssText = 'width:100%;height:100%;object-fit:cover;position:relative;z-index:1;'; el.prepend(img); }
+            img.src = src;
+            const ph = el.querySelector('.placeholder');
+            if (ph) ph.style.display = 'none';
+            saved[slot] = src;
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+          };
+          reader.readAsDataURL(file);
+        };
+        input.click();
+      });
+    });
 
     // Cursor
     const cursor = document.getElementById('cursor');
