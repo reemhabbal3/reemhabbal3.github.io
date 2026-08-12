@@ -1532,7 +1532,7 @@
     })();
 
     // ─── Auto-assign text slot keys ────────────────────────────────
-    const TEXT_SELECTORS = '.hero-desc, .project-name, .project-tag, .service-name, .service-desc, .exp-role, .exp-company, .exp-bullets li, .blog-title, .blog-excerpt, .faq-q-text, .faq-answer p, .footer-tagline';
+    const TEXT_SELECTORS = '.hero-desc, .project-name, .project-tag, .service-name, .service-desc, .exp-role, .exp-company, .exp-bullets li, .blog-title, .blog-excerpt, .faq-q-text, .faq-answer p, .footer-tagline, .about-bio';
     document.querySelectorAll(TEXT_SELECTORS).forEach(el => {
       const section = el.closest('section, footer, #hero') || document.body;
       const sId = section.id || section.tagName.toLowerCase();
