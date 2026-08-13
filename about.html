@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About — Reem Habbal</title>
+  <title>About - Reem Habbal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -73,9 +73,6 @@
     .placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
     .placeholder-icon { font-size: 24px; opacity: 0.2; }
     .placeholder-label { font-size: 11px; color: var(--gray); opacity: 0.5; }
-    .edit-pencil { display: none; position: absolute; inset: 0; background: rgba(194,101,74,0.15); border: 1px dashed var(--accent); align-items: center; justify-content: center; font-size: 12px; color: var(--accent); letter-spacing: 0.08em; }
-    body.edit-mode .edit-pencil { display: flex; }
-    body.edit-mode .media-slot { cursor: pointer; }
 
     /* ─── Art grid ─────────────────────────────────────────────── */
     .art-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 40px; }
@@ -100,9 +97,6 @@
     .pinterest-preview .media-slot { aspect-ratio: 9/16; height: auto; }
 
     /* ─── Edit Mode ────────────────────────────────────────────── */
-    #edit-btn { display: none; }
-    body.edit-mode .media-slot { cursor: pointer; outline: 1px dashed rgba(194,101,74,0.4); }
-    body.edit-mode .media-slot .edit-pencil { display: flex; }
 
     /* ─── Blog ─────────────────────────────────────────────────── */
     .blog-placeholder { border: 1px dashed var(--border); padding: 60px 40px; text-align: center; border-radius: 2px; margin-top: 40px; }
@@ -167,7 +161,7 @@
       <div class="bio-photo">
         <div class="media-slot" data-slot="about-photo" style="height: 480px;">
           <img src="images/Profile Photo.jpg" alt="Reem Habbal" style="width:100%;height:100%;object-fit:cover;position:relative;z-index:1;">
-          <div class="edit-pencil">✎ Upload photo</div>
+          
         </div>
       </div>
     </div>
@@ -179,12 +173,12 @@
     <h2 class="section-title">Paintings,<br>drawings & <em>series.</em></h2>
     <p class="body-text">Art has always shaped the way I think: less about performance, more about process. I work across gouache, illustration, digital, and mixed media.</p>
     <div class="art-grid">
-      <div class="art-slot"><div class="media-slot" data-slot="art-1"><img src="images/art-1.jpeg" style="width:100%;height:100%;object-fit:cover;"><div class="edit-pencil">✎ Upload</div></div></div>
-      <div class="art-slot"><div class="media-slot" data-slot="art-2"><img src="images/art-2.jpeg" style="width:100%;height:100%;object-fit:cover;"><div class="edit-pencil">✎ Upload</div></div></div>
-      <div class="art-slot"><div class="media-slot" data-slot="art-3"><img src="images/art-3..jpeg" style="width:100%;height:100%;object-fit:cover;"><div class="edit-pencil">✎ Upload</div></div></div>
-      <div class="art-slot"><div class="media-slot" data-slot="art-4"><img src="images/art-4.jpeg" style="width:100%;height:100%;object-fit:cover;"><div class="edit-pencil">✎ Upload</div></div></div>
-      <div class="art-slot"><div class="media-slot" data-slot="art-5"><img src="images/art-5.jpeg" style="width:100%;height:100%;object-fit:cover;"><div class="edit-pencil">✎ Upload</div></div></div>
-      <div class="art-slot"><div class="media-slot" data-slot="art-6"><img src="images/art-6.jpeg" style="width:100%;height:100%;object-fit:cover;"><div class="edit-pencil">✎ Upload</div></div></div>
+      <div class="art-slot"><div class="media-slot" data-slot="art-1"><img src="images/art-1.jpeg" style="width:100%;height:100%;object-fit:cover;"></div></div>
+      <div class="art-slot"><div class="media-slot" data-slot="art-2"><img src="images/art-2.jpeg" style="width:100%;height:100%;object-fit:cover;"></div></div>
+      <div class="art-slot"><div class="media-slot" data-slot="art-3"><img src="images/art-3..jpeg" style="width:100%;height:100%;object-fit:cover;"></div></div>
+      <div class="art-slot"><div class="media-slot" data-slot="art-4"><img src="images/art-4.jpeg" style="width:100%;height:100%;object-fit:cover;"></div></div>
+      <div class="art-slot"><div class="media-slot" data-slot="art-5"><img src="images/art-5.jpeg" style="width:100%;height:100%;object-fit:cover;"></div></div>
+      <div class="art-slot"><div class="media-slot" data-slot="art-6"><img src="images/art-6.jpeg" style="width:100%;height:100%;object-fit:cover;"></div></div>
     </div>
   </div>
 
@@ -201,9 +195,9 @@
       <span class="pinterest-arrow">↗</span>
     </a>
     <div class="pinterest-preview">
-      <div class="media-slot" data-slot="pinterest-1"><img src="images/pinterest-1.jpeg" style="width:100%;height:100%;object-fit:cover;"><div class="edit-pencil">✎ Upload</div></div>
-      <div class="media-slot" data-slot="pinterest-2"><img src="images/pinterest-2.jpg" style="width:100%;height:100%;object-fit:cover;"><div class="edit-pencil">✎ Upload</div></div>
-      <div class="media-slot" data-slot="pinterest-3"><img src="images/pinterest-3.jpg" style="width:100%;height:100%;object-fit:cover;"><div class="edit-pencil">✎ Upload</div></div>
+      <div class="media-slot" data-slot="pinterest-1"><img src="images/pinterest-1.jpeg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="media-slot" data-slot="pinterest-2"><img src="images/pinterest-2.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="media-slot" data-slot="pinterest-3"><img src="images/pinterest-3.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
     </div>
   </div>
 
@@ -211,25 +205,25 @@
   <div class="about-section reveal" id="travel">
     <p class="section-label">RH <span>·</span> Travel</p>
     <h2 class="section-title">Places that<br><em>shaped me.</em></h2>
-    <p class="body-text">Raised between cultures, I travel the same way I work — looking for what makes a place feel like itself. These are some of the moments that stuck.</p>
+    <p class="body-text">Raised between cultures, I travel the same way I work - looking for what makes a place feel like itself. These are some of the moments that stuck.</p>
     <div class="travel-grid">
       <div class="travel-slot">
-        <div class="media-slot" data-slot="travel-1" style="height:320px;"><img src="images/travel-3.jpeg" style="width:100%;height:100%;object-fit:cover;"><div class="edit-pencil">✎ Upload</div></div>
+        <div class="media-slot" data-slot="travel-1" style="height:320px;"><img src="images/travel-3.jpeg" style="width:100%;height:100%;object-fit:cover;"></div>
         <p class="travel-caption">Damascus, Syria</p>
         <p class="travel-commentary">My birth city and one of the oldest cities in the world has shaped the way I perceive life, culture, and relationships.</p>
       </div>
       <div class="travel-slot">
-        <div class="media-slot" data-slot="travel-2" style="height:320px;"><img src="images/travel-2.jpeg" style="width:100%;height:100%;object-fit:cover;"><div class="edit-pencil">✎ Upload</div></div>
+        <div class="media-slot" data-slot="travel-2" style="height:320px;"><img src="images/travel-2.jpeg" style="width:100%;height:100%;object-fit:cover;"></div>
         <p class="travel-caption">Seoul, South Korea</p>
         <p class="travel-commentary">Where modern meets culture, tradition and ever evolving trends. Seoul leads my fashion, skincare and balance of friendships.</p>
       </div>
       <div class="travel-slot">
-        <div class="media-slot" data-slot="travel-3" style="height:320px;"><img src="images/travel-1.jpeg" style="width:100%;height:100%;object-fit:cover;"><div class="edit-pencil">✎ Upload</div></div>
+        <div class="media-slot" data-slot="travel-3" style="height:320px;"><img src="images/travel-1.jpeg" style="width:100%;height:100%;object-fit:cover;"></div>
         <p class="travel-caption">Chengdu, China</p>
         <p class="travel-commentary">The combination of art, fashion and history existing harmoniously has re-sparked my creativity and allowed me to try new things.</p>
       </div>
       <div class="travel-slot">
-        <div class="media-slot" data-slot="travel-4" style="height:320px;"><img src="images/travel-4.jpg" style="width:100%;height:100%;object-fit:cover;"><div class="edit-pencil">✎ Upload</div></div>
+        <div class="media-slot" data-slot="travel-4" style="height:320px;"><img src="images/travel-4.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
         <p class="travel-caption">Alvor, Portugal</p>
         <p class="travel-commentary">The first time I experienced the world from above, literally. I fulfilled my lifelong bucket list item and learned to be adventurous and try new things.</p>
       </div>
@@ -242,12 +236,10 @@
     <h2 class="section-title">Thoughts<br>in <em>progress.</em></h2>
     <p class="body-text">Occasional writing on AI creative, brand strategy, and what's actually changing in how content gets made. Coming soon.</p>
     <div class="blog-placeholder">
-      <p class="blog-placeholder-label">No posts yet — check back soon.</p>
+      <p class="blog-placeholder-label">No posts yet - check back soon.</p>
       <p class="blog-placeholder-sub">First post coming soon</p>
     </div>
   </div>
-
-  <button id="edit-btn">✎ Edit</button>
 
   <footer>
     <span class="footer-copy">© 2025 Reem Habbal</span>
@@ -269,9 +261,6 @@
     }, { threshold: 0.08 });
     reveals.forEach(el => observer.observe(el));
 
-    // Edit mode
-    const editBtn = document.getElementById('edit-btn');
-    let editMode = false;
     const STORAGE_KEY = 'about-images-v1';
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
 
@@ -298,51 +287,8 @@
       if (savedText[i] !== undefined) el.innerHTML = savedText[i];
     });
 
-    function toggleEdit() {
-      editMode = !editMode;
-      document.body.classList.toggle('edit-mode', editMode);
-      editBtn.textContent = editMode ? '✓ Done' : '✎ Edit';
-      editBtn.classList.toggle('active', editMode);
 
-      document.querySelectorAll(TEXT_SELECTORS).forEach(el => {
-        el.contentEditable = editMode ? 'true' : 'false';
-        el.style.outline = editMode ? '1px dashed rgba(194,101,74,0.4)' : '';
-        el.style.padding = editMode ? '4px' : '';
-        el.style.cursor = editMode ? 'text' : '';
-        if (!editMode) {
-          savedText[el.dataset.textId] = el.innerHTML;
-          localStorage.setItem(TEXT_STORAGE, JSON.stringify(savedText));
-        }
-      });
-    }
-    document.addEventListener('keydown', e => {
-      if (e.shiftKey && e.key === 'E') toggleEdit();
-    });
 
-    document.querySelectorAll('[data-slot]').forEach(el => {
-      el.addEventListener('click', () => {
-        if (!editMode) return;
-        const input = document.createElement('input');
-        input.type = 'file'; input.accept = 'image/*';
-        input.onchange = e => {
-          const file = e.target.files[0]; if (!file) return;
-          const reader = new FileReader();
-          reader.onload = ev => {
-            const src = ev.target.result;
-            const slot = el.dataset.slot;
-            let img = el.querySelector('img');
-            if (!img) { img = document.createElement('img'); img.style.cssText = 'width:100%;height:100%;object-fit:cover;position:relative;z-index:1;'; el.prepend(img); }
-            img.src = src;
-            const ph = el.querySelector('.placeholder');
-            if (ph) ph.style.display = 'none';
-            saved[slot] = src;
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
-          };
-          reader.readAsDataURL(file);
-        };
-        input.click();
-      });
-    });
 
     // Cursor
     const cursor = document.getElementById('cursor');
