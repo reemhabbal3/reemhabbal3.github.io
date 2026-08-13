@@ -90,6 +90,12 @@
     .workflow-card-title { font-size: 16px; font-weight: 400; margin-bottom: 12px; }
     .workflow-card-desc { font-size: 13px; color: var(--gray); line-height: 1.7; }
     .workflow-media { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .prompt-block { margin-bottom: 48px; }
+    .prompt-block:last-child { margin-bottom: 0; }
+    .prompt-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 4px; padding: 32px; margin-bottom: 16px; }
+    .prompt-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .prompt-title { font-size: 15px; font-weight: 500; margin-bottom: 20px; }
+    .prompt-body { font-family: "SF Mono", "Fira Code", monospace; font-size: 12px; color: var(--gray); line-height: 1.8; white-space: pre-wrap; word-break: break-word; }
 
     /* ─── Roaring Concepts stats bar ───────────────────────────── */
     .rc-stats {
@@ -313,9 +319,29 @@
           <p class="workflow-card-desc">Scaled content output from 30 assets/month to 300+ assets/week across all client accounts, while collaborating with the dev team to debug integrations and improve automation performance.</p>
         </div>
       </div>
-      <div class="workflow-media">
-        <div class="media-slot" data-slot="unit-wf-1" style="min-height:220px"><div class="placeholder"><span class="placeholder-icon">📋</span><span class="placeholder-label">unit-wf-1.jpg</span></div><div class="edit-pencil">✎ Upload</div></div>
-        <div class="media-slot" data-slot="unit-wf-2" style="min-height:220px"><div class="placeholder"><span class="placeholder-icon">📋</span><span class="placeholder-label">unit-wf-2.jpg</span></div><div class="edit-pencil">✎ Upload</div></div>
+      <!-- Prompt 1 -->
+      <div class="prompt-block">
+        <div class="prompt-card">
+          <p class="prompt-label">Prompt 01</p>
+          <p class="prompt-title" data-text-slot="unit-prompt-1-title" contenteditable="false">Add prompt title here</p>
+          <pre class="prompt-body" data-text-slot="unit-prompt-1-body" contenteditable="false">Paste your prompt here...</pre>
+        </div>
+        <div class="workflow-media">
+          <div class="media-slot" data-slot="unit-wf-1" style="aspect-ratio:4/5;height:auto"><div class="placeholder"><span class="placeholder-icon">🖼</span><span class="placeholder-label">unit-wf-1.jpg</span></div><div class="edit-pencil">✎ Upload</div></div>
+          <div class="media-slot" data-slot="unit-wf-2" style="aspect-ratio:4/5;height:auto"><div class="placeholder"><span class="placeholder-icon">🖼</span><span class="placeholder-label">unit-wf-2.jpg</span></div><div class="edit-pencil">✎ Upload</div></div>
+        </div>
+      </div>
+      <!-- Prompt 2 -->
+      <div class="prompt-block">
+        <div class="prompt-card">
+          <p class="prompt-label">Prompt 02</p>
+          <p class="prompt-title" data-text-slot="unit-prompt-2-title" contenteditable="false">Add prompt title here</p>
+          <pre class="prompt-body" data-text-slot="unit-prompt-2-body" contenteditable="false">Paste your prompt here...</pre>
+        </div>
+        <div class="workflow-media">
+          <div class="media-slot" data-slot="unit-wf-3" style="aspect-ratio:4/5;height:auto"><div class="placeholder"><span class="placeholder-icon">🖼</span><span class="placeholder-label">unit-wf-3.jpg</span></div><div class="edit-pencil">✎ Upload</div></div>
+          <div class="media-slot" data-slot="unit-wf-4" style="aspect-ratio:4/5;height:auto"><div class="placeholder"><span class="placeholder-icon">🖼</span><span class="placeholder-label">unit-wf-4.jpg</span></div><div class="edit-pencil">✎ Upload</div></div>
+        </div>
       </div>
     </div>
   </div>
