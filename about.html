@@ -37,8 +37,22 @@
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 24px 40px; transition: background 0.4s var(--ease), backdrop-filter 0.4s; }
     nav.scrolled { background: rgba(10,10,10,0.88); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
     .nav-logo { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
-    .nav-back { font-size: 12px; color: var(--gray); letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.25s; }
-    .nav-back:hover { color: var(--accent); }
+    .nav-page-links { display: flex; gap: 28px; list-style: none; }
+    .nav-page-links a { font-size: 12px; color: var(--gray); letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.25s; }
+    .nav-page-links a:hover { color: var(--white); }
+
+    #scroll-nav {
+      position: fixed; top: 72px; left: 50%; transform: translateX(-50%);
+      z-index: 99; display: flex; align-items: center; gap: 6px;
+      background: rgba(10,10,10,0.75); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: 100px;
+      padding: 6px 8px; opacity: 0; pointer-events: none;
+      transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+      transform: translateX(-50%) translateY(-6px);
+    }
+    #scroll-nav.visible { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+    .scroll-chip { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); border: 1px solid transparent; padding: 7px 16px; border-radius: 100px; transition: background 0.2s, border-color 0.2s, color 0.2s; white-space: nowrap; }
+    .scroll-chip:hover, .scroll-chip.active { background: var(--accent); color: var(--white); border-color: var(--accent); }
 
     /* ─── Page Header ──────────────────────────────────────────── */
     .page-header { padding: 160px 40px 80px; border-bottom: 1px solid var(--border); animation: fadeUp 0.9s var(--ease) both; }
@@ -115,7 +129,7 @@
 
     @media (max-width: 768px) {
       nav { padding: 20px 24px; }
-      .page-header, .about-section, .jump-nav { padding-left: 24px; padding-right: 24px; }
+      .page-header, .about-section { padding-left: 24px; padding-right: 24px; }
       .bio-grid { grid-template-columns: 1fr; }
       .bio-photo { position: static; }
       .art-grid { grid-template-columns: repeat(2, 1fr); }
@@ -130,21 +144,23 @@
   <div id="cursor"></div>
 
   <nav id="nav">
-    <a href="portfolio.html" class="nav-logo">Reem Habbal</a>
-    <a href="portfolio.html" class="nav-back">← Back</a>
+    <a href="portfolio.html#hero" class="nav-logo">Reem Habbal</a>
+    <ul class="nav-page-links">
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="experience.html">Experience</a></li>
+    </ul>
   </nav>
+  <div id="scroll-nav">
+    <a href="#bio" class="scroll-chip">Bio</a>
+    <a href="#art" class="scroll-chip">Art</a>
+    <a href="#pinterest" class="scroll-chip">Pinterest</a>
+    <a href="#travel" class="scroll-chip">Travel</a>
+    <a href="#writing" class="scroll-chip">Writing</a>
+  </div>
 
   <div class="page-header">
     <p class="page-header-label">RH <span>·</span> About</p>
     <h1 class="page-header-title">Beyond the<br><em>résumé.</em></h1>
-  </div>
-
-  <div class="jump-nav">
-    <a href="#bio" class="jump-link">Bio</a>
-    <a href="#art" class="jump-link">Art</a>
-    <a href="#pinterest" class="jump-link">Pinterest</a>
-    <a href="#travel" class="jump-link">Travel</a>
-    <a href="#writing" class="jump-link">Writing</a>
   </div>
 
   <!-- Bio -->
@@ -253,6 +269,29 @@
     // Nav scroll
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+    // Scroll nav hover
+    const scrollNav = document.getElementById('scroll-nav');
+    let hideTimer;
+    function showScrollNav() { clearTimeout(hideTimer); scrollNav.classList.add('visible'); }
+    function hideScrollNav() { hideTimer = setTimeout(() => scrollNav.classList.remove('visible'), 200); }
+    nav.addEventListener('mouseenter', showScrollNav);
+    nav.addEventListener('mouseleave', hideScrollNav);
+    scrollNav.addEventListener('mouseenter', showScrollNav);
+    scrollNav.addEventListener('mouseleave', hideScrollNav);
+
+    const chipSections = ['bio','art','pinterest','travel','writing'];
+    const chips = document.querySelectorAll('.scroll-chip');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      chipSections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.offsetParent !== null && window.scrollY >= el.offsetTop - 200) current = id;
+      });
+      chips.forEach(chip => {
+        chip.classList.toggle('active', chip.getAttribute('href') === '#' + current);
+      });
+    }, { passive: true });
 
     // Reveal on scroll
     const reveals = document.querySelectorAll('.reveal');

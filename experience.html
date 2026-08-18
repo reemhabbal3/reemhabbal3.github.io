@@ -220,7 +220,6 @@
     <a href="#avenue-z" class="scroll-chip">Avenue Z</a>
     <a href="#roaring-concepts" class="scroll-chip">Roaring Concepts</a>
     <a href="#bjj" class="scroll-chip">BJJ Club</a>
-    <a href="#other" class="scroll-chip">Other Work</a>
   </div>
 
   <!-- Page Header -->
@@ -841,7 +840,7 @@ High quality, high resolution</pre></div>
     scrollNav.addEventListener('mouseenter', showScrollNav);
     scrollNav.addEventListener('mouseleave', hideScrollNav);
 
-    const chipSections = ['unit','avenue-z','roaring-concepts','bjj','other'];
+    const chipSections = ['unit','avenue-z','roaring-concepts','bjj'];
     const chips = document.querySelectorAll('.scroll-chip');
     window.addEventListener('scroll', () => {
       let current = '';
