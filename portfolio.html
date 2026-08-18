@@ -99,7 +99,7 @@
       transform: translateX(-50%) translateY(0);
     }
     .scroll-nav-trigger {
-      position: fixed; top: 0; left: 0; right: 0; height: 72px; z-index: 98;
+      position: fixed; top: 0; left: 0; right: 0; height: 120px; z-index: 98; pointer-events: none;
     }
     .scroll-chip {
       font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
@@ -1379,12 +1379,11 @@
 
     // ─── Floating scroll nav ────────────────────────────────────────
     const scrollNav = document.getElementById('scroll-nav');
-    const scrollTrigger = document.getElementById('scroll-trigger');
     let hideTimer;
     function showScrollNav() { clearTimeout(hideTimer); scrollNav.classList.add('visible'); }
-    function hideScrollNav() { hideTimer = setTimeout(() => scrollNav.classList.remove('visible'), 300); }
-    scrollTrigger.addEventListener('mouseenter', showScrollNav);
-    scrollTrigger.addEventListener('mouseleave', hideScrollNav);
+    function hideScrollNav() { hideTimer = setTimeout(() => scrollNav.classList.remove('visible'), 200); }
+    nav.addEventListener('mouseenter', showScrollNav);
+    nav.addEventListener('mouseleave', hideScrollNav);
     scrollNav.addEventListener('mouseenter', showScrollNav);
     scrollNav.addEventListener('mouseleave', hideScrollNav);
 
