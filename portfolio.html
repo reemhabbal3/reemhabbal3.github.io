@@ -451,20 +451,34 @@
     /* ─── Campaigns / Projects ──────────────────────────────────── */
     #campaigns .campaigns-list { display: flex; flex-direction: column; }
     .campaign-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 28px 0; border-bottom: 1px solid var(--border);
-      cursor: pointer; overflow: hidden; position: relative;
-      transition: padding 0.35s var(--ease);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden; position: relative;
     }
     .campaign-item:first-child { border-top: 1px solid var(--border); }
+    .campaign-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 28px 0; cursor: pointer; position: relative;
+      transition: padding 0.35s var(--ease);
+      text-decoration: none; color: inherit;
+    }
     .campaign-item::after {
-      content: ''; position: absolute; inset: 0;
+      content: ''; position: absolute; left: 0; right: 0; top: 0; height: 84px;
       background: rgba(255,255,255,0.025);
       transform: translateX(-101%);
       transition: transform 0.4s var(--ease);
     }
     .campaign-item:hover::after { transform: translateX(0); }
-    .campaign-item:hover { padding-left: 12px; }
+    .campaign-item:hover .campaign-row { padding-left: 12px; }
+    .campaign-bullets {
+      list-style: none; padding: 0 0 24px 52px; margin: 0;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .campaign-bullets li {
+      font-size: 13px; color: var(--gray); line-height: 1.7; position: relative; padding-left: 16px;
+    }
+    .campaign-bullets li::before {
+      content: '-'; position: absolute; left: 0; color: rgba(255,255,255,0.2);
+    }
 
     .campaign-left { display: flex; align-items: center; gap: 24px; }
     .campaign-num { font-size: 11px; color: var(--gray); letter-spacing: 0.08em; min-width: 28px; }
@@ -480,6 +494,7 @@
       transition: transform 0.3s var(--ease), color 0.3s;
     }
     .campaign-item:hover .campaign-arrow { transform: rotate(0deg); color: var(--accent); }
+    .campaign-item:hover .campaign-row .campaign-arrow { transform: rotate(0deg); color: var(--accent); }
 
     /* ─── Education ─────────────────────────────────────────────── */
     #education .edu-block {
@@ -789,63 +804,100 @@
 
   <!-- Campaigns / Featured Work -->
   <section id="campaigns">
-    <p class="section-label reveal">RH <span>·</span> Work Breakdown</p>
+    <p class="section-label reveal">RH <span>·</span> Experience</p>
     <div class="campaigns-list">
-      <a href="experience.html#unit" class="campaign-item reveal">
-        <div class="campaign-left">
-          <span class="campaign-num">01</span>
-          <span class="campaign-name">Unit</span>
-          <span class="campaign-tag">Forward Deployed Creative Lead</span>
-        </div>
-        <div class="campaign-right">
-          <span class="campaign-year">Apr 2026 - Present</span>
-          <span class="campaign-arrow">↗</span>
-        </div>
-      </a>
-      <a href="experience.html#avenue-z" class="campaign-item reveal reveal-delay-1">
-        <div class="campaign-left">
-          <span class="campaign-num">02</span>
-          <span class="campaign-name">Avenue Z</span>
-          <span class="campaign-tag">Paid Media</span>
-        </div>
-        <div class="campaign-right">
-          <span class="campaign-year">Dec 2025 - Present</span>
-          <span class="campaign-arrow">↗</span>
-        </div>
-      </a>
-      <a href="experience.html#freelance" class="campaign-item reveal reveal-delay-3">
-        <div class="campaign-left">
-          <span class="campaign-num">03</span>
-          <span class="campaign-name">Freelance</span>
-          <span class="campaign-tag">Digital Marketing Specialist</span>
-        </div>
-        <div class="campaign-right">
-          <span class="campaign-year">Jun 2023 - Mar 2025</span>
-          <span class="campaign-arrow">↗</span>
-        </div>
-      </a>
-      <a href="experience.html#roaring-concepts" class="campaign-item reveal reveal-delay-4">
-        <div class="campaign-left">
-          <span class="campaign-num">04</span>
-          <span class="campaign-name">Roaring Concepts</span>
-          <span class="campaign-tag">Marketing Account Director</span>
-        </div>
-        <div class="campaign-right">
-          <span class="campaign-year">Jan 2022 - May 2023</span>
-          <span class="campaign-arrow">↗</span>
-        </div>
-      </a>
-      <a href="experience.html#other" class="campaign-item reveal reveal-delay-4">
-        <div class="campaign-left">
-          <span class="campaign-num">05</span>
-          <span class="campaign-name">Other Work</span>
-          <span class="campaign-tag">Retail &amp; Hospitality</span>
-        </div>
-        <div class="campaign-right">
-          <span class="campaign-year">2019 - 2024</span>
-          <span class="campaign-arrow">↗</span>
-        </div>
-      </a>
+
+      <div class="campaign-item campaign-item--expandable reveal">
+        <a href="experience.html#unit" class="campaign-row">
+          <div class="campaign-left">
+            <span class="campaign-num">01</span>
+            <span class="campaign-name">Unit</span>
+            <span class="campaign-tag">Forward Deployed Creative Lead</span>
+          </div>
+          <div class="campaign-right">
+            <span class="campaign-year">Apr 2026 - Present</span>
+            <span class="campaign-arrow">↗</span>
+          </div>
+        </a>
+        <ul class="campaign-bullets">
+          <li>Lead AI-powered creative production across social, video, and content workflows for multiple client accounts simultaneously.</li>
+          <li>Build custom automation pipelines using Claude, ChatGPT, Midjourney, Runway, and ElevenLabs - scaling output from 30 assets/month to 300+ assets/week.</li>
+          <li>Collaborate directly with the dev team to build and deploy client-facing tools including a fully custom AI demo page.</li>
+        </ul>
+      </div>
+
+      <div class="campaign-item campaign-item--expandable reveal reveal-delay-1">
+        <a href="experience.html#avenue-z" class="campaign-row">
+          <div class="campaign-left">
+            <span class="campaign-num">02</span>
+            <span class="campaign-name">Avenue Z</span>
+            <span class="campaign-tag">Project Coordinator - Paid Media Intern</span>
+          </div>
+          <div class="campaign-right">
+            <span class="campaign-year">Dec 2025 - Present</span>
+            <span class="campaign-arrow">↗</span>
+          </div>
+        </a>
+        <ul class="campaign-bullets">
+          <li>Designed and implemented a centralised workflow and SLA system adopted by a 10-person paid media team across a 14-account portfolio.</li>
+          <li>Standardised cross-functional communication between strategists, buyers, and creative teams - accelerating turnaround and strengthening accountability.</li>
+        </ul>
+      </div>
+
+      <div class="campaign-item campaign-item--expandable reveal reveal-delay-2">
+        <a href="experience.html#freelance" class="campaign-row">
+          <div class="campaign-left">
+            <span class="campaign-num">03</span>
+            <span class="campaign-name">Freelance</span>
+            <span class="campaign-tag">Digital Marketing Specialist</span>
+          </div>
+          <div class="campaign-right">
+            <span class="campaign-year">Jun 2023 - Mar 2025</span>
+            <span class="campaign-arrow">↗</span>
+          </div>
+        </a>
+        <ul class="campaign-bullets">
+          <li>Ran an independent social media and digital marketing practice for 6+ small businesses across fashion, retail, and coworking.</li>
+          <li>Built and managed multiple client accounts, achieving audience growth of 3,000%+ within 4-6 months and driving higher sales inquiries and foot traffic.</li>
+        </ul>
+      </div>
+
+      <div class="campaign-item campaign-item--expandable reveal reveal-delay-3">
+        <a href="experience.html#roaring-concepts" class="campaign-row">
+          <div class="campaign-left">
+            <span class="campaign-num">04</span>
+            <span class="campaign-name">Roaring Concepts</span>
+            <span class="campaign-tag">Marketing Account Director</span>
+          </div>
+          <div class="campaign-right">
+            <span class="campaign-year">Jan 2022 - May 2023</span>
+            <span class="campaign-arrow">↗</span>
+          </div>
+        </a>
+        <ul class="campaign-bullets">
+          <li>Spearheaded multi-channel campaigns for Celsius, Red Bull, and Warner Music Latina - increasing reach by 40% and engagement by 25% across target markets.</li>
+          <li>Managed and coordinated a 60-person cross-functional team, standardising KPI reporting and improving execution efficiency.</li>
+        </ul>
+      </div>
+
+      <div class="campaign-item campaign-item--expandable reveal reveal-delay-4">
+        <a href="experience.html#other" class="campaign-row">
+          <div class="campaign-left">
+            <span class="campaign-num">05</span>
+            <span class="campaign-name">Other Work</span>
+            <span class="campaign-tag">Retail &amp; Hospitality</span>
+          </div>
+          <div class="campaign-right">
+            <span class="campaign-year">2019 - 2024</span>
+            <span class="campaign-arrow">↗</span>
+          </div>
+        </a>
+        <ul class="campaign-bullets">
+          <li>Directed daily operations of a $7M annual revenue retail store, leading 8 managers and 120+ associates across sales, service, and operational KPIs.</li>
+          <li>Increased customer satisfaction scores by 30% within one year through structured leadership and engagement initiatives.</li>
+        </ul>
+      </div>
+
     </div>
     <div style="text-align:center; margin: 32px 0 0;">
       <a href="experience.html" class="view-all-link view-all-primary">
@@ -1019,8 +1071,7 @@
   </section>
 
   <!-- Experience -->
-  <section id="experience">
-    <p class="section-label reveal">RH <span>·</span> Experience</p>
+  <section id="experience" style="display:none">
     <div class="experience-list">
 
       <div class="exp-item reveal">
