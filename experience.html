@@ -60,6 +60,10 @@
     .company-role { font-size: 13px; }
 
     /* ─── Client sub-sections ──────────────────────────────────── */
+    .unit-two-col { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border); }
+    .unit-two-col .client-section { border-top: none; border-right: 1px solid var(--border); }
+    .unit-two-col .client-section:last-child { border-right: none; }
+    @media (max-width: 768px) { .unit-two-col { grid-template-columns: 1fr; } .unit-two-col .client-section { border-right: none; } }
     .client-section { border-top: 1px solid var(--border); padding: 56px 40px; }
     .client-section:last-child { border-bottom: none; }
     .client-header { display: flex; align-items: baseline; gap: 20px; margin-bottom: 40px; }
@@ -213,13 +217,13 @@
       </div>
     </div>
 
-    <div class="client-section reveal" id="unit-demo">
-      <div class="client-header">
-        <span class="client-num">01</span>
-        <span class="client-name">Demo Tool</span>
-        <span class="client-tag">Product · Development</span>
-      </div>
-      <div class="client-body">
+    <div class="unit-two-col reveal">
+      <div class="client-section" id="unit-demo">
+        <div class="client-header">
+          <span class="client-num">01</span>
+          <span class="client-name">Demo Tool</span>
+          <span class="client-tag">Product · Development</span>
+        </div>
         <div>
           <p class="client-desc">A fully custom demo page - generated in under 20 minutes from nothing but a website and an Instagram link. Each demo includes talking head UGC, product demo UGC, Pixar-style video, static ads, lifestyle photography, and an email sequence, all tailored to the brand.</p>
           <p class="client-desc" style="margin-top:12px;">The videos are where it lands. Characters speak directly to product benefits and mirror the hooks and retention patterns that drive real UGC performance - so decision makers aren't imagining what their content could look like. They're seeing it.</p>
@@ -230,18 +234,16 @@
           </div>
         </div>
       </div>
-    </div>
 
-<div class="client-section reveal" id="unit-prompts">
-      <div class="client-header">
-        <span class="client-num">03</span>
-        <span class="client-name">Customized Client Prompts</span>
-        <span class="client-tag">Prompt Engineering</span>
-      </div>
-      <div class="client-body">
+      <div class="client-section" id="unit-prompts">
+        <div class="client-header">
+          <span class="client-num">02</span>
+          <span class="client-name">Customized Client Prompts</span>
+          <span class="client-tag">Prompt Engineering</span>
+        </div>
         <div>
           <p class="client-desc">Prompt systems built per client - not templates. Each one is mapped to their brand voice, product, audience, and specific content needs, whether that's long-format UGC with a defined script structure, static ad copy tied to performance data, competitor analysis, or audience breakdowns.</p>
-          <p class="client-desc" style="margin-top:12px;">12 clients across 12 different industries. Turnaround is 1–2 days for targeted prompts, 3–4 days for heavier automations. Case studies in progress.</p>
+          <p class="client-desc" style="margin-top:12px;">12 clients across 12 different industries. Turnaround is 1-2 days for targeted prompts, 3-4 days for heavier automations. Case studies in progress.</p>
           <p class="client-desc" style="margin-top:12px;">Specific client details are under NDA - but the range covers everything from consumer wellness brands to e-commerce to creator-led businesses.</p>
           <div class="client-stats">
             <div class="client-stat"><span class="client-stat-label">Focus</span><span class="client-stat-value">Prompt Engineering · Brand Alignment</span></div>
