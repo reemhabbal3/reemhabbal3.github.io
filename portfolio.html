@@ -57,6 +57,7 @@
     @keyframes loaderPulse { from { opacity: 0.3; } to { opacity: 1; } }
 
     /* ─── Navigation ────────────────────────────────────────────── */
+    /* ─── Top Header ───────────────────────────────────────────── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -72,22 +73,42 @@
       font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
       text-transform: uppercase;
     }
-    .nav-links {
-      display: flex; align-items: center; gap: 32px;
-      list-style: none;
+    .nav-page-links {
+      display: flex; align-items: center; gap: 28px; list-style: none;
     }
-    .nav-links a {
+    .nav-page-links a {
       font-size: 12px; color: var(--gray); letter-spacing: 0.06em;
-      text-transform: uppercase;
-      transition: color 0.25s;
+      text-transform: uppercase; transition: color 0.25s;
     }
-    .nav-links a:hover { color: var(--accent); }
-    .nav-cta {
-      font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,0.2); padding: 9px 20px; border-radius: 100px;
-      transition: background 0.25s, border-color 0.25s, color 0.25s;
+    .nav-page-links a:hover { color: var(--white); }
+
+    /* ─── Floating Scroll Nav ───────────────────────────────────── */
+    #scroll-nav {
+      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
+      z-index: 200;
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(10,10,10,0.6); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: 100px;
+      padding: 6px 8px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+      transform: translateX(-50%) translateY(8px);
     }
-    .nav-cta:hover {
+    #scroll-nav.visible {
+      opacity: 1; pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+    .scroll-nav-trigger {
+      position: fixed; bottom: 0; left: 0; right: 0; height: 80px; z-index: 199;
+    }
+    .scroll-chip {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gray); border: 1px solid transparent;
+      padding: 7px 16px; border-radius: 100px;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .scroll-chip:hover, .scroll-chip.active {
       background: var(--accent); color: var(--white); border-color: var(--accent);
     }
 
@@ -692,15 +713,21 @@
   <!-- Navigation -->
   <nav id="nav">
     <a href="portfolio.html#hero" class="nav-logo">Reem Habbal</a>
-    <ul class="nav-links">
-      <li><a href="#campaigns">Work</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#education">Education</a></li>
+    <ul class="nav-page-links">
+      <li><a href="experience.html">Experience</a></li>
       <li><a href="about.html">About</a></li>
     </ul>
-    <a href="#contact" class="nav-cta">Contact</a>
   </nav>
+
+  <!-- Floating scroll nav -->
+  <div class="scroll-nav-trigger" id="scroll-trigger"></div>
+  <div id="scroll-nav">
+    <a href="#campaigns" class="scroll-chip">Work</a>
+    <a href="#portfolio" class="scroll-chip">Portfolio</a>
+    <a href="#skills" class="scroll-chip">Skills</a>
+    <a href="#education" class="scroll-chip">Education</a>
+    <a href="#contact" class="scroll-chip">Contact</a>
+  </div>
 
   <!-- Hero -->
   <section id="hero">
@@ -1348,6 +1375,31 @@
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // ─── Floating scroll nav ────────────────────────────────────────
+    const scrollNav = document.getElementById('scroll-nav');
+    const scrollTrigger = document.getElementById('scroll-trigger');
+    let hideTimer;
+    function showScrollNav() { clearTimeout(hideTimer); scrollNav.classList.add('visible'); }
+    function hideScrollNav() { hideTimer = setTimeout(() => scrollNav.classList.remove('visible'), 300); }
+    scrollTrigger.addEventListener('mouseenter', showScrollNav);
+    scrollTrigger.addEventListener('mouseleave', hideScrollNav);
+    scrollNav.addEventListener('mouseenter', showScrollNav);
+    scrollNav.addEventListener('mouseleave', hideScrollNav);
+
+    // Highlight active chip based on scroll position
+    const chipSections = ['campaigns','portfolio','skills','education','contact'];
+    const chips = document.querySelectorAll('.scroll-chip');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      chipSections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 200) current = id;
+      });
+      chips.forEach(chip => {
+        chip.classList.toggle('active', chip.getAttribute('href') === '#' + current);
+      });
     }, { passive: true });
 
     // ─── Scroll reveal ─────────────────────────────────────────────
