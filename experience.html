@@ -847,7 +847,7 @@ High quality, high resolution</pre></div>
       let current = '';
       chipSections.forEach(id => {
         const el = document.getElementById(id);
-        if (el && window.scrollY >= el.offsetTop - 200) current = id;
+        if (el && el.offsetParent !== null && window.scrollY >= el.offsetTop - 200) current = id;
       });
       chips.forEach(chip => {
         chip.classList.toggle('active', chip.getAttribute('href') === '#' + current);
