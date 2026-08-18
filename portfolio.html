@@ -84,22 +84,22 @@
 
     /* ─── Floating Scroll Nav ───────────────────────────────────── */
     #scroll-nav {
-      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
-      z-index: 200;
+      position: fixed; top: 72px; left: 50%; transform: translateX(-50%);
+      z-index: 99;
       display: flex; align-items: center; gap: 6px;
-      background: rgba(10,10,10,0.6); backdrop-filter: blur(16px);
+      background: rgba(10,10,10,0.75); backdrop-filter: blur(16px);
       border: 1px solid var(--border); border-radius: 100px;
       padding: 6px 8px;
       opacity: 0; pointer-events: none;
-      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
-      transform: translateX(-50%) translateY(8px);
+      transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+      transform: translateX(-50%) translateY(-6px);
     }
     #scroll-nav.visible {
       opacity: 1; pointer-events: auto;
       transform: translateX(-50%) translateY(0);
     }
     .scroll-nav-trigger {
-      position: fixed; bottom: 0; left: 0; right: 0; height: 80px; z-index: 199;
+      position: fixed; top: 0; left: 0; right: 0; height: 72px; z-index: 98;
     }
     .scroll-chip {
       font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
