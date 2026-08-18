@@ -99,12 +99,19 @@
     .workflow-card-title { font-size: 16px; font-weight: 400; margin-bottom: 12px; }
     .workflow-card-desc { font-size: 13px; color: var(--gray); line-height: 1.7; }
     .workflow-media { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .prompt-block { margin-bottom: 48px; }
+    .prompt-block { margin-bottom: 16px; }
     .prompt-block:last-child { margin-bottom: 0; }
-    .prompt-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 4px; padding: 32px; margin-bottom: 16px; }
-    .prompt-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
-    .prompt-title { font-size: 15px; font-weight: 500; margin-bottom: 20px; }
-    .prompt-body { font-family: "SF Mono", "Fira Code", monospace; font-size: 12px; color: var(--gray); line-height: 1.8; white-space: pre-wrap; word-break: break-word; }
+    .prompt-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 16px; }
+    .prompt-toggle { display: flex; align-items: center; justify-content: space-between; padding: 24px 32px; cursor: pointer; user-select: none; }
+    .prompt-toggle:hover { background: rgba(255,255,255,0.03); }
+    .prompt-toggle-left { display: flex; flex-direction: column; gap: 6px; }
+    .prompt-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); }
+    .prompt-title { font-size: 15px; font-weight: 500; }
+    .prompt-chevron { font-size: 18px; color: var(--gray); transition: transform 0.3s var(--ease); }
+    .prompt-block.open .prompt-chevron { transform: rotate(180deg); }
+    .prompt-content { display: none; padding: 0 32px 32px; border-top: 1px solid var(--border); }
+    .prompt-block.open .prompt-content { display: block; }
+    .prompt-body { font-family: "SF Mono", "Fira Code", monospace; font-size: 12px; color: var(--gray); line-height: 1.8; white-space: pre-wrap; word-break: break-word; padding-top: 24px; }
 
     /* ─── Roaring Concepts stats bar ───────────────────────────── */
     .rc-stats {
@@ -284,9 +291,15 @@
       <!-- Prompt 1 -->
       <div class="prompt-block">
         <div class="prompt-card">
-          <p class="prompt-label">Prompt 01</p>
-          <p class="prompt-title" data-text-slot="unit-prompt-1-title" contenteditable="false">Lifestyle Product Photography</p>
-          <pre class="prompt-body" data-text-slot="unit-prompt-1-body" contenteditable="false">A lifestyle-driven image system that uses contrast, light, and environment to make the product impossible to miss -- always in the context of a real moment, with a real person.
+          <div class="prompt-toggle">
+            <div class="prompt-toggle-left">
+              <span class="prompt-label">Prompt 01</span>
+              <span class="prompt-title">Lifestyle Product Photography</span>
+            </div>
+            <span class="prompt-chevron">↓</span>
+          </div>
+          <div class="prompt-content">
+            <pre class="prompt-body">A lifestyle-driven image system that uses contrast, light, and environment to make the product impossible to miss -- always in the context of a real moment, with a real person.
 
 One constant: the product always wins. Everything else is determined by what the product is and how it's actually used.
 
@@ -336,6 +349,7 @@ Static poses -- no action, no interaction, no environmental contact
 Scenes with no specific moment, place, or context
 Bisecting the eyes -- never crop through the pupil or iris
 Extra limbs, unnatural hands, forced perspective toward the lens</pre>
+          </div>
         </div>
         <div class="workflow-media">
           <div class="media-slot" data-slot="unit-wf-1" style="aspect-ratio:4/5;height:auto"><div class="placeholder"><span class="placeholder-icon">🖼</span><span class="placeholder-label">unit-wf-1.jpg</span></div></div>
@@ -345,9 +359,15 @@ Extra limbs, unnatural hands, forced perspective toward the lens</pre>
       <!-- Prompt 2 -->
       <div class="prompt-block">
         <div class="prompt-card">
-          <p class="prompt-label">Prompt 02</p>
-          <p class="prompt-title" data-text-slot="unit-prompt-2-title" contenteditable="false">Email Sequence</p>
-          <pre class="prompt-body" data-text-slot="unit-prompt-2-body" contenteditable="false">Generate a polished, professional email marketing sequence image showing 5 vertical, long email mockups arranged side by side horizontally.
+          <div class="prompt-toggle">
+            <div class="prompt-toggle-left">
+              <span class="prompt-label">Prompt 02</span>
+              <span class="prompt-title">Email Sequence</span>
+            </div>
+            <span class="prompt-chevron">↓</span>
+          </div>
+          <div class="prompt-content">
+            <pre class="prompt-body">Generate a polished, professional email marketing sequence image showing 5 vertical, long email mockups arranged side by side horizontally.
 
 Use gpt image 2
 
@@ -384,6 +404,7 @@ Output
 
 Aspect ratio: 16:9
 High quality, high resolution</pre>
+          </div>
         </div>
         <div class="workflow-media">
           <div class="media-slot" data-slot="unit-wf-3" style="aspect-ratio:4/5;height:auto"><div class="placeholder"><span class="placeholder-icon">🖼</span><span class="placeholder-label">unit-wf-3.jpg</span></div></div>
@@ -882,6 +903,13 @@ High quality, high resolution</pre>
       });
     });
 
+
+    // ─── Prompt toggles ────────────────────────────────────────────
+    document.querySelectorAll('.prompt-toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        toggle.closest('.prompt-block').classList.toggle('open');
+      });
+    });
 
     // ─── Lightbox ──────────────────────────────────────────────────
     const lightbox = document.getElementById('lightbox');
