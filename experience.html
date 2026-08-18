@@ -109,9 +109,12 @@
     .prompt-title { font-size: 15px; font-weight: 500; }
     .prompt-chevron { font-size: 18px; color: var(--gray); transition: transform 0.3s var(--ease); }
     .prompt-block.open .prompt-chevron { transform: rotate(180deg); }
-    .prompt-content { display: none; padding: 0 32px 32px; border-top: 1px solid var(--border); }
-    .prompt-block.open .prompt-content { display: block; }
+    .prompt-content { padding: 0 32px 32px; border-top: 1px solid var(--border); }
     .prompt-body { font-family: "SF Mono", "Fira Code", monospace; font-size: 12px; color: var(--gray); line-height: 1.8; white-space: pre-wrap; word-break: break-word; padding-top: 24px; }
+    .prompt-body-wrap { position: relative; overflow: hidden; max-height: 72px; transition: max-height 0.4s var(--ease); }
+    .prompt-block.open .prompt-body-wrap { max-height: 2000px; }
+    .prompt-body-wrap::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: linear-gradient(transparent, rgba(20,20,20,0.95)); pointer-events: none; transition: opacity 0.3s; }
+    .prompt-block.open .prompt-body-wrap::after { opacity: 0; }
 
     /* ─── Roaring Concepts stats bar ───────────────────────────── */
     .rc-stats {
@@ -299,7 +302,7 @@
             <span class="prompt-chevron">↓</span>
           </div>
           <div class="prompt-content">
-            <pre class="prompt-body">A lifestyle-driven image system that uses contrast, light, and environment to make the product impossible to miss -- always in the context of a real moment, with a real person.
+            <div class="prompt-body-wrap"><pre class="prompt-body">A lifestyle-driven image system that uses contrast, light, and environment to make the product impossible to miss -- always in the context of a real moment, with a real person.
 
 One constant: the product always wins. Everything else is determined by what the product is and how it's actually used.
 
@@ -348,7 +351,7 @@ Centered, symmetric compositions with nothing cropped and nothing happening
 Static poses -- no action, no interaction, no environmental contact
 Scenes with no specific moment, place, or context
 Bisecting the eyes -- never crop through the pupil or iris
-Extra limbs, unnatural hands, forced perspective toward the lens</pre>
+Extra limbs, unnatural hands, forced perspective toward the lens</pre></div>
           </div>
         </div>
         <div class="workflow-media">
@@ -367,7 +370,7 @@ Extra limbs, unnatural hands, forced perspective toward the lens</pre>
             <span class="prompt-chevron">↓</span>
           </div>
           <div class="prompt-content">
-            <pre class="prompt-body">Generate a polished, professional email marketing sequence image showing 5 vertical, long email mockups arranged side by side horizontally.
+            <div class="prompt-body-wrap"><pre class="prompt-body">Generate a polished, professional email marketing sequence image showing 5 vertical, long email mockups arranged side by side horizontally.
 
 Use gpt image 2
 
@@ -403,7 +406,7 @@ Consistent alignment and visual rhythm across all 5 emails.
 Output
 
 Aspect ratio: 16:9
-High quality, high resolution</pre>
+High quality, high resolution</pre></div>
           </div>
         </div>
         <div class="workflow-media">
