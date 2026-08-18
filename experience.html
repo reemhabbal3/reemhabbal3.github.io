@@ -33,8 +33,22 @@
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 24px 40px; transition: background 0.4s var(--ease), backdrop-filter 0.4s; }
     nav.scrolled { background: rgba(10,10,10,0.88); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
     .nav-logo { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
-    .nav-back { font-size: 12px; color: var(--gray); letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.25s; }
-    .nav-back:hover { color: var(--accent); }
+    .nav-page-links { display: flex; gap: 28px; list-style: none; }
+    .nav-page-links a { font-size: 12px; color: var(--gray); letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.25s; }
+    .nav-page-links a:hover { color: var(--white); }
+
+    #scroll-nav {
+      position: fixed; top: 72px; left: 50%; transform: translateX(-50%);
+      z-index: 99; display: flex; align-items: center; gap: 6px;
+      background: rgba(10,10,10,0.75); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: 100px;
+      padding: 6px 8px; opacity: 0; pointer-events: none;
+      transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+      transform: translateX(-50%) translateY(-6px);
+    }
+    #scroll-nav.visible { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+    .scroll-chip { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); border: 1px solid transparent; padding: 7px 16px; border-radius: 100px; transition: background 0.2s, border-color 0.2s, color 0.2s; white-space: nowrap; }
+    .scroll-chip:hover, .scroll-chip.active { background: var(--accent); color: var(--white); border-color: var(--accent); }
 
     /* ─── Page Header ──────────────────────────────────────────── */
     .page-header { padding: 160px 40px 80px; border-bottom: 1px solid var(--border); animation: fadeUp 0.9s var(--ease) both; }
@@ -44,10 +58,7 @@
     .page-header-title { font-size: clamp(48px, 7vw, 88px); font-weight: 300; letter-spacing: -0.03em; line-height: 1.03; }
     .page-header-title em { font-style: italic; color: var(--accent); }
 
-    /* ─── Jump Nav ─────────────────────────────────────────────── */
-    .jump-nav { display: flex; gap: 10px; padding: 28px 40px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
-    .jump-link { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--border); padding: 8px 18px; border-radius: 100px; color: var(--gray); transition: background 0.2s, color 0.2s, border-color 0.2s; }
-    .jump-link:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
+    /* ─── Jump Nav (removed - replaced by scroll-nav) ──────────── */
 
     /* ─── Company block ────────────────────────────────────────── */
     .company-block { border-bottom: 1px solid var(--border); }
@@ -199,22 +210,23 @@
 
   <nav id="nav">
     <a href="portfolio.html#hero" class="nav-logo">Reem Habbal</a>
-    <a href="portfolio.html" class="nav-back">← Back to Portfolio</a>
+    <ul class="nav-page-links">
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
   </nav>
+  <div id="scroll-nav">
+    <a href="#unit" class="scroll-chip">Unit</a>
+    <a href="#avenue-z" class="scroll-chip">Avenue Z</a>
+    <a href="#roaring-concepts" class="scroll-chip">Roaring Concepts</a>
+    <a href="#bjj" class="scroll-chip">BJJ Club</a>
+    <a href="#other" class="scroll-chip">Other Work</a>
+  </div>
 
   <!-- Page Header -->
   <div class="page-header">
     <p class="page-header-label">RH <span>·</span> Work Breakdown</p>
     <h1 class="page-header-title">Experience<br><em>in depth.</em></h1>
-  </div>
-
-  <!-- Jump Nav -->
-  <div class="jump-nav">
-    <a href="#unit" class="jump-link">Unit</a>
-    <a href="#avenue-z" class="jump-link">Avenue Z</a>
-    <a href="#roaring-concepts" class="jump-link">Roaring Concepts</a>
-    <a href="#bjj" class="jump-link">BJJ Club</a>
-    <a href="#other" class="jump-link">Other Work</a>
   </div>
 
   <!-- ═══════════════════════════════════════════════════════════
@@ -223,7 +235,7 @@
   <div class="company-block" id="unit">
     <div class="company-header reveal">
       <div>
-        <p class="company-label">01 · Forward Deployed Creative Lead · Apr 2026 - Present</p>
+        <p class="company-label">01 · AI Creative Agency</p>
         <h2 class="company-name">Unit</h2>
       </div>
       <div class="company-meta">
@@ -423,7 +435,7 @@ High quality, high resolution</pre></div>
   <div class="company-block" id="avenue-z">
     <div class="company-header reveal">
       <div>
-        <p class="company-label">01 · Paid Media · Dec 2025 - Present</p>
+        <p class="company-label">02 · Paid Media Agency</p>
         <h2 class="company-name">Avenue Z</h2>
       </div>
       <div class="company-meta">
@@ -652,7 +664,7 @@ High quality, high resolution</pre></div>
     <!-- Header -->
     <div class="company-header reveal">
       <div>
-        <p class="company-label">02 · Marketing Account Director · Jan 2022 - May 2023</p>
+        <p class="company-label">03 · Marketing Agency</p>
         <h2 class="company-name">Roaring Concepts</h2>
       </div>
       <div class="company-meta">
@@ -732,7 +744,7 @@ High quality, high resolution</pre></div>
   <div class="company-block" id="bjj">
     <div class="company-header reveal">
       <div>
-        <p class="company-label">04 · Leadership · Jan 2022 - May 2023</p>
+        <p class="company-label">04 · Student Organization</p>
         <h2 class="company-name">Brazilian Jiu-Jitsu<br>Club at FIU</h2>
       </div>
       <div class="company-meta">
@@ -816,6 +828,30 @@ High quality, high resolution</pre></div>
 
     window.addEventListener('scroll', () => {
       document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // ─── Scroll nav hover ──────────────────────────────────────────
+    const scrollNav = document.getElementById('scroll-nav');
+    const navEl = document.getElementById('nav');
+    let hideTimer;
+    function showScrollNav() { clearTimeout(hideTimer); scrollNav.classList.add('visible'); }
+    function hideScrollNav() { hideTimer = setTimeout(() => scrollNav.classList.remove('visible'), 200); }
+    navEl.addEventListener('mouseenter', showScrollNav);
+    navEl.addEventListener('mouseleave', hideScrollNav);
+    scrollNav.addEventListener('mouseenter', showScrollNav);
+    scrollNav.addEventListener('mouseleave', hideScrollNav);
+
+    const chipSections = ['unit','avenue-z','roaring-concepts','bjj','other'];
+    const chips = document.querySelectorAll('.scroll-chip');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      chipSections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 200) current = id;
+      });
+      chips.forEach(chip => {
+        chip.classList.toggle('active', chip.getAttribute('href') === '#' + current);
+      });
     }, { passive: true });
 
     // ─── Reveal ────────────────────────────────────────────────────
